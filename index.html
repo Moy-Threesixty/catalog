@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Yummy Tummy Bakery · Catalog</title>
+<meta name="description" content="Yummy Tummy Bakery catalog: cupcakes, cakes, pastries and custom cakes. Humble &amp; Valley Ranch, Houston, TX.">
+<link rel="icon" href="img/logo.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/* Layout: brand header + category tabs, flavor filter chips, photo grid; tap opens a full-screen product sheet. Single brand theme (light) by choice. */
+:root{
+  --rose:#A3414A; --wine:#7A2E36; --ink:#3A2326; --muted:#8A7477;
+  --blush:#F7E4E5; --tint:#FBF3F3; --line:#E9C9CC; --paper:#FFFFFF; --ivory:#FBF8F3;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--tint);color:var(--ink)}
+body{font-family:var(--sans);font-size:16px;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar{display:flex;align-items:center;gap:16px;padding-block:14px 10px}
+.logo{height:46px;width:auto;display:block}
+.bar .spacer{flex:1}
+.lang{display:flex;border:1.5px solid var(--rose);border-radius:999px;overflow:hidden}
+.lang button{border:0;background:transparent;padding:7px 14px;font-weight:700;font-size:13px;letter-spacing:.06em;color:var(--rose)}
+.lang button[aria-pressed="true"]{background:var(--rose);color:var(--paper)}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:transparent;padding:12px 16px 13px;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.tab[aria-selected="true"]{color:var(--wine);border-bottom-color:var(--rose)}
+.tab .count{font-size:11px;background:var(--blush);color:var(--wine);border-radius:999px;padding:2px 8px;letter-spacing:0}
+.tab .soon{font-size:10px;color:var(--muted);letter-spacing:.04em;font-weight:600;text-transform:none}
+
+main{padding-block:22px 40px}
+.intro{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:18px}
+.intro h1{font-family:var(--serif);font-weight:400;font-style:italic;font-size:clamp(30px,4.4vw,46px);line-height:1.05;margin:0;color:var(--wine);text-wrap:balance}
+.intro p{margin:6px 0 0;color:var(--muted);font-size:15px;max-width:48ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--wine);border-color:var(--wine);color:var(--paper)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.card{border:0;background:var(--paper);border-radius:18px;padding:12px 12px 16px;text-align:left;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--line);transition:transform .15s ease, box-shadow .15s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(122,46,54,.45)}
+.card .ph{aspect-ratio:1/1;max-width:100%;display:grid;place-items:center;background:var(--paper);border-radius:12px;overflow:hidden}
+.card img{mix-blend-mode:multiply;width:86%;height:86%;object-fit:contain}
+.card h3{margin:0;font-size:18px;font-weight:700;color:var(--wine);letter-spacing:-.01em}
+.card .tl{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--muted);line-height:1.25;min-width:0}
+.card .badge{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);background:var(--blush);border-radius:999px;padding:4px 9px}
+
+.pend{width:100%;height:100%;display:grid;place-items:center;align-content:center;gap:8px;background:var(--ivory);border:1.5px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;padding:10px}
+.pend svg{width:34%;max-width:72px;height:auto}
+.pend span{font-size:12.5px;font-weight:600;letter-spacing:.04em}
+.pend code{font:700 11px ui-monospace,Menlo,monospace;color:var(--rose);background:var(--blush);border-radius:6px;padding:2px 7px}
+.stage .pend{min-height:300px;border-radius:18px}
+.soonbox{background:var(--paper);border-radius:22px;padding:48px 24px;text-align:center;display:grid;gap:10px;justify-items:center;border:1.5px dashed var(--line)}
+.soonbox h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:40px;margin:0;color:var(--wine)}
+.soonbox p{margin:0;color:var(--muted);max-width:46ch;line-height:1.5}
+.dots{display:flex;gap:9px}.dots i{width:8px;height:8px;border-radius:50%;background:var(--rose);display:block}
+
+.foot{color:var(--muted);font-size:13px;text-align:center;padding-block:10px 24px;letter-spacing:.04em}
+
+/* product sheet */
+.sheet{position:fixed;inset:0;z-index:40;background:rgba(58,35,38,.42);display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
+.panel{background:var(--paper);border-radius:24px;width:min(1080px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1.05fr 1fr;position:relative}
+.stage{background:var(--ivory);display:grid;grid-template-rows:1fr auto;gap:14px;padding:26px;min-height:420px;border-radius:24px 0 0 24px}
+.stage .imgbox{display:grid;place-items:center;min-height:0}
+.stage img{mix-blend-mode:multiply;max-width:100%;max-height:min(56vh,520px);object-fit:contain;transition:opacity .2s}
+.view{justify-self:center;display:flex;background:var(--paper);border-radius:999px;padding:4px;gap:4px;border:1px solid var(--line)}
+.view button{border:0;background:transparent;border-radius:999px;padding:9px 18px;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.view button[aria-pressed="true"]{background:var(--rose);color:var(--paper)}
+.info{padding:30px 30px 26px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.info .cat{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose)}
+.info h2{margin:0;font-size:clamp(32px,4vw,44px);line-height:1;color:var(--wine);letter-spacing:-.02em}
+.info .tl{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--muted);margin-top:-6px}
+.info .desc{font-size:18px;line-height:1.5;margin:0;color:var(--ink);max-width:44ch}
+.inside{display:grid;gap:0;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.row dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rose)}
+.row dd{margin:0;font-size:16px;line-height:1.4}
+.allergy{background:var(--blush);color:var(--wine);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45}
+.allergy b{letter-spacing:.04em}
+.nav{display:flex;gap:10px;margin-top:auto;padding-top:6px}
+.nav button{flex:1;border:1.5px solid var(--line);background:var(--paper);border-radius:14px;padding:13px;font-weight:700;color:var(--wine);font-size:14px}
+.close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:var(--paper);box-shadow:0 2px 10px rgba(58,35,38,.18);font-size:22px;line-height:1;color:var(--wine);z-index:2}
+
+@media (max-width:760px){
+  .panel{grid-template-columns:1fr}
+  .stage{border-radius:24px 24px 0 0;min-height:0;padding:18px}
+  .stage img{max-height:42vh}
+  .info{padding:20px 18px 18px}
+  .row{grid-template-columns:96px 1fr}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .card h3{font-size:16px}
+  .logo{height:38px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <img class="logo" src="img/logo.png" alt="Yummy Tummy Bakery">
+      <div class="spacer"></div>
+      <div class="lang" role="group" aria-label="Language">
+        <button id="lang-es" type="button" aria-pressed="true">ES</button>
+        <button id="lang-en" type="button" aria-pressed="false">EN</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <h1 id="h1"></h1>
+      <p id="sub"></p>
+    </div>
+    <div class="chips" id="chips" role="group"></div>
+  </section>
+  <div id="content"></div>
+</main>
+<p class="foot wrap">Yummy Tummy Bakery · Humble · Valley Ranch · Houston, TX</p>
+
+<div class="sheet" id="sheet" hidden>
+  <article class="panel" role="dialog" aria-modal="true" aria-labelledby="p-name">
+    <button class="close" id="close" type="button" aria-label="Close">×</button>
+    <div class="stage">
+      <div class="imgbox"><img id="p-img" alt=""><div id="pend-box" style="width:100%" hidden></div></div>
+      <div class="view" role="group">
+        <button id="v-out" type="button" aria-pressed="true"></button>
+        <button id="v-in" type="button" aria-pressed="false"></button>
+      </div>
+    </div>
+    <div class="info">
+      <div class="cat" id="p-cat"></div>
+      <h2 id="p-name"></h2>
+      <div class="tl" id="p-tl"></div>
+      <p class="desc" id="p-desc"></p>
+      <dl class="inside" id="p-rows"></dl>
+      <div class="allergy" id="p-allergy" hidden></div>
+      <div class="nav">
+        <button id="prev" type="button"></button>
+        <button id="next" type="button"></button>
+      </div>
+    </div>
+  </article>
+</div>
+
+<script>
+const T = {
+  es:{h1:{cupcakes:'Nuestros cupcakes',cakes:'Nuestros pasteles',pastries:'Nuestros pastries',custom:'Custom cakes'},
+      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.'},
+      tabs:{cupcakes:'Cupcakes',cakes:'Pasteles',pastries:'Pastries',custom:'Custom Cakes'},
+      soon:'Pronto', all:'Todos',
+      tags:{chocolate:'Chocolate',fruit:'Frutales',creamy:'Cremosos',caramel:'Caramelo',kids:'Para niños'},
+      soonTitle:'Muy pronto', soonText:{cakes:'Estamos preparando las fotos de nuestros pasteles. Pregunte a nuestro equipo por sabores y tamaños.',
+        pastries:'Nuestra selección de pastries llegará muy pronto a este catálogo.',custom:'Pastel personalizado para su evento: pregunte a nuestro equipo y le tomamos el pedido.'},
+      out:'Por fuera', in:'Por dentro', prev:'‹ Anterior', next:'Siguiente ›',
+      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto próximamente', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',pastries:'Pastry',custom:'Custom cake'},
+      allergy:'<b>ALERGIAS:</b> contiene nuez y avellana. Si tiene alguna alergia, pregunte a nuestro equipo.',
+      allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
+      cat:'Cupcake'},
+  en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',pastries:'Our pastries',custom:'Custom cakes'},
+      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
+      tabs:{cupcakes:'Cupcakes',cakes:'Cakes',pastries:'Pastries',custom:'Custom Cakes'},
+      soon:'Soon', all:'All',
+      tags:{chocolate:'Chocolate',fruit:'Fruity',creamy:'Creamy',caramel:'Caramel',kids:'Kids’ favorites'},
+      soonTitle:'Coming soon', soonText:{cakes:'We’re photographing our cakes. Ask our team about flavors and sizes.',
+        pastries:'Our pastry selection is coming to this catalog soon.',custom:'A custom cake for your event: ask our team and we’ll take your order.'},
+      out:'Outside', in:'Inside', prev:'‹ Previous', next:'Next ›',
+      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo coming soon', catLabel:{cupcakes:'Cupcake',cakes:'Cake',pastries:'Pastry',custom:'Custom cake'},
+      allergy:'<b>ALLERGIES:</b> contains nuts and hazelnut. If you have an allergy, please ask our team.',
+      allergyAll:'<b>ALLERGIES:</b> if you have an allergy, please ask our team before ordering.',
+      cat:'Cupcake'}
+};
+const CATS = ['cupcakes','cakes','pastries','custom'];
+const P = [
+ {id:'black_forest',name:'Black Forest',tags:['chocolate','fruit'],
+  es:{tl:'Chocolate · Cereza · Crema batida',d:'El clásico Selva Negra en cupcake: chocolate, cereza por dentro y crema batida ligera.',base:'Chocolate',fill:'Puré de cereza con crema batida',top:'Crema batida',deco:'Cereza bañada en chocolate y virutas de chocolate oscuro'},
+  en:{tl:'Chocolate · Cherry · Whipped Cream',d:'The classic Black Forest cake in a cupcake: chocolate, cherry filling and light whipped cream.',base:'Chocolate',fill:'Cherry purée with whipped cream',top:'Whipped cream',deco:'Chocolate-dipped cherry and dark chocolate shavings'}},
+ {id:'cheesecake',name:'Cheesecake',tags:['fruit','creamy'],
+  es:{tl:'Vainilla · Frambuesa · Cheesecake',d:'Sabe a un cheesecake New York con frambuesa: cremoso por fuera y con mousse de frambuesa por dentro.',base:'Vainilla',fill:'Mousse de frambuesa',top:'Crema batida sabor cheesecake',deco:'Crumbs de galleta, roseta de frambuesa y trocitos de cheesecake'},
+  en:{tl:'Vanilla · Raspberry · Cheesecake',d:'Tastes like a New York cheesecake with raspberry: creamy on top with raspberry mousse inside.',base:'Vanilla',fill:'Raspberry mousse',top:'Cheesecake whipped cream',deco:'Cookie crumbs, raspberry rosette and cheesecake bites'}},
+ {id:'chocolate_brownie',name:'Chocolate Brownie',tags:['chocolate','kids'],
+  es:{tl:'Chocolate · Mousse · Brownie',d:'Para el amante del chocolate: relleno de mousse, cubierta de ganache y pedacitos de brownie arriba.',base:'Chocolate',fill:'Mousse de chocolate',top:'Mousse de chocolate con ganache',deco:'Mini M&M’s y pedacitos de brownie'},
+  en:{tl:'Chocolate · Mousse · Brownie',d:'For chocolate lovers: mousse filling, ganache frosting and little brownie bites on top.',base:'Chocolate',fill:'Chocolate mousse',top:'Chocolate ganache mousse',deco:'Mini M&M’s and brownie bites'}},
+ {id:'cookie_dough',name:'Cookie Dough',tags:['kids','creamy'],
+  es:{tl:'Vainilla · Chispas de chocolate · Galleta',d:'Sabe a masa de galleta con chispas de chocolate, como cuando te comes la masa cruda.',base:'Vainilla',fill:'Crema bávara con chispas de chocolate',top:'Crema batida sabor galleta',deco:'Bolita de masa de galleta y galleta molida'},
+  en:{tl:'Vanilla · Chocolate Chip · Cookie',d:'Tastes like chocolate chip cookie dough, like sneaking a bite from the bowl.',base:'Vanilla',fill:'Bavarian cream with chocolate chips',top:'Cookie whipped cream',deco:'Cookie dough bite and cookie crumbs'}},
+ {id:'dulce_de_leche',name:'Dulce de Leche',tags:['caramel'],
+  es:{tl:'Vainilla · Dulce de leche · Crema batida',d:'Dulce de leche por dentro y por fuera, con churrito y una pipeta de caramelo para el toque final.',base:'Vainilla',fill:'Dulce de leche',top:'Crema batida con dulce de leche',deco:'Mini churro, pipeta de caramelo, caramelo y azúcar gruesa'},
+  en:{tl:'Vanilla · Dulce de Leche · Whipped Cream',d:'Dulce de leche inside and out, topped with a mini churro and a caramel pipette.',base:'Vanilla',fill:'Dulce de leche',top:'Whipped cream with dulce de leche',deco:'Mini churro, caramel pipette, caramel drizzle and coarse sugar'}},
+ {id:'lemon_blueberry',name:'Lemon Blueberry',tags:['fruit'],
+  es:{tl:'Limón · Blueberry · Crema batida',d:'Fresco y ligero: limón por dentro y crema de blueberry por fuera. Perfecto si no quiere algo muy dulce.',base:'Limón',fill:'Crema de limón (lemon curd)',top:'Crema batida con mermelada de blueberry',deco:'Rositas de crema y blueberries frescas'},
+  en:{tl:'Lemon · Blueberry · Whipped Cream',d:'Fresh and light: lemon inside, blueberry cream on top. Great if you want something not too sweet.',base:'Lemon',fill:'Lemon curd',top:'Whipped cream with blueberry jam',deco:'Cream rosettes and fresh blueberries'}},
+ {id:'lovers',name:'Lovers',tags:['fruit'],
+  es:{tl:'Fresa · Mermelada de fresa · Mousse',d:'Todo fresa: pan de fresa, relleno de mermelada y mousse rosado con fresa natural arriba.',base:'Fresa',fill:'Mermelada de fresa',top:'Mousse de fresa Lovers',deco:'Media fresa natural y crumbs de galleta con fresa'},
+  en:{tl:'Strawberry · Strawberry Jam · Mousse',d:'All strawberry: strawberry cake, jam filling and pink mousse topped with a fresh strawberry.',base:'Strawberry',fill:'Strawberry jam',top:'Lovers strawberry mousse',deco:'Half a fresh strawberry and strawberry cookie crumbs'}},
+ {id:'lucky_charms',name:'Lucky Charms',tags:['kids'],
+  es:{tl:'Vainilla · Crema bávara · Cereal',d:'Sabe al cereal de la infancia: crema de cereal, sprinkles de colores y un Rice Krispie arriba. Los niños lo aman.',base:'Vainilla',fill:'Crema bávara',top:'Buttercream sabor cereal',deco:'Sprinkles de colores y Rice Krispie con chocolate blanco'},
+  en:{tl:'Vanilla · Bavarian Cream · Cereal',d:'Tastes like your favorite childhood cereal, with rainbow sprinkles and a Rice Krispie on top. Kids love it.',base:'Vanilla',fill:'Bavarian cream',top:'Cereal buttercream',deco:'Rainbow sprinkles and a white chocolate Rice Krispie'}},
+ {id:'nutella',name:'Nutella',tags:['chocolate'],nuts:true,
+  es:{tl:'Chocolate · Nutella · Buttercream',d:'Chocolate con Nutella por dentro y por fuera, con medio Ferrero Rocher arriba.',base:'Chocolate',fill:'Nutella',top:'Swiss buttercream de Nutella',deco:'Nuez picada y medio Ferrero Rocher'},
+  en:{tl:'Chocolate · Nutella · Buttercream',d:'Chocolate and Nutella inside and out, topped with half a Ferrero Rocher.',base:'Chocolate',fill:'Nutella',top:'Nutella Swiss buttercream',deco:'Chopped nuts and half a Ferrero Rocher'}},
+ {id:'pinguino',name:'Pingüino',tags:['chocolate','kids'],
+  es:{tl:'Chocolate · Malvavisco · Chocolate',d:'Inspirado en el pastelito clásico: chocolate, crema de malvavisco y su capa de chocolate con espiral.',base:'Chocolate',fill:'Crema batida',top:'Buttercream de malvavisco con capa de chocolate',deco:'Espirales de buttercream blanco'},
+  en:{tl:'Chocolate · Marshmallow · Chocolate',d:'Inspired by the classic snack cake: chocolate, marshmallow cream and a chocolate shell with the iconic swirl.',base:'Chocolate',fill:'Whipped cream',top:'Marshmallow buttercream with a chocolate shell',deco:'White buttercream swirls'}},
+ {id:'red_velvet',name:'Red Velvet',tags:['creamy'],
+  es:{tl:'Red Velvet · Cream Cheese',d:'El clásico: pan red velvet suave con cream cheese por dentro y por fuera.',base:'Red velvet',fill:'Cream cheese',top:'Cream cheese',deco:'Crumbs de red velvet'},
+  en:{tl:'Red Velvet · Cream Cheese',d:'The classic: soft red velvet cake with cream cheese inside and on top.',base:'Red velvet',fill:'Cream cheese',top:'Cream cheese',deco:'Red velvet crumbs'}}
+].map(p => ({cat:'cupcakes', ...p}));
+
+// ---- Pasteles, pastries y custom cakes. photo:false = foto pendiente. code = código de la foto (P05_A -> img/{id}-out.webp, P05_B -> img/{id}-in.webp)
+const S=(es,en)=>({es,en});
+const X=(cat,code,id,name,tags,sz,es,en,extra)=>({cat,code,id,name,tags,photo:false,sz,es,en,...(extra||{})});
+const EXTRA=[
+ X('cakes','P01','red_velvet_cake','Red Velvet',['creamy'],S('8" · Rebanada · Sheet','8" · Slice · Sheet'),
+  {tl:'Red Velvet · Cream Cheese',d:'Nuestro clásico: capas de red velvet suave con cream cheese entre cada capa y por fuera.',base:'Red velvet (4 capas)',fill:'Cream cheese (3 capas)',top:'Cream cheese'},
+  {tl:'Red Velvet · Cream Cheese',d:'Our classic: layers of soft red velvet with cream cheese between every layer and on the outside.',base:'Red velvet (4 layers)',fill:'Cream cheese (3 layers)',top:'Cream cheese'}),
+ X('cakes','P02','vanilla_buttercream','Vanilla Buttercream',['creamy','kids'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Vainilla · Buttercream',d:'Suave y clásico: pan de vainilla con buttercream de vainilla.',base:'Vainilla (4 capas)',fill:'Buttercream de vainilla (3 capas)',top:'French buttercream de vainilla'},
+  {tl:'Vanilla · Buttercream',d:'Soft and classic: vanilla cake with vanilla buttercream.',base:'Vanilla (4 layers)',fill:'Vanilla buttercream (3 layers)',top:'Vanilla French buttercream'}),
+ X('cakes','P03','chocolate_buttercream','Chocolate Buttercream',['chocolate','kids'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Chocolate · Buttercream',d:'Pan de chocolate con buttercream de chocolate, por dentro y por fuera.',base:'Chocolate (4 capas)',fill:'Buttercream de chocolate (3 capas)',top:'French buttercream de chocolate'},
+  {tl:'Chocolate · Buttercream',d:'Chocolate cake with chocolate buttercream, inside and out.',base:'Chocolate (4 layers)',fill:'Chocolate buttercream (3 layers)',top:'Chocolate French buttercream'}),
+ X('cakes','P04','chocolate_ganache','Chocolate Ganache',['chocolate'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Chocolate · Ganache',d:'Para el amante del chocolate: pan de chocolate con ganache entre cada capa.',base:'Chocolate (4 capas)',fill:'Ganache de chocolate (3 capas)'},
+  {tl:'Chocolate · Ganache',d:'For chocolate lovers: chocolate cake with ganache between every layer.',base:'Chocolate (4 layers)',fill:'Chocolate ganache (3 layers)'}),
+ X('cakes','P05','carrot_cake','Carrot Cake',['creamy'],S('6" · 8" · 10" · Rebanada · Sheet','6" · 8" · 10" · Slice · Sheet'),
+  {tl:'Zanahoria · Cream Cheese · Nuez',d:'Pan de zanahoria húmedo con cream cheese y nuez encima.',base:'Carrot cake (4 capas)',fill:'Cream cheese (3 capas)',top:'Cream cheese',deco:'Nuez (walnuts)'},
+  {tl:'Carrot · Cream Cheese · Walnuts',d:'Moist carrot cake with cream cheese and walnuts on top.',base:'Carrot cake (4 layers)',fill:'Cream cheese (3 layers)',top:'Cream cheese',deco:'Walnuts'},{nuts:true}),
+ X('cakes','P06','italian_cream','Italian Cream Cheese',['creamy'],S('6" · 8" · 10" · Sheet','6" · 8" · 10" · Sheet'),
+  {tl:'Italian Cake · Cream Cheese',d:'Italian cake con cream cheese, coco tostado y pecanas.',base:'Italian cake (4 capas)',fill:'Cream cheese (3 capas)',top:'Cream cheese',deco:'Coco tostado y pecanas'},
+  {tl:'Italian Cake · Cream Cheese',d:'Italian cake with cream cheese, toasted coconut and pecans.',base:'Italian cake (4 layers)',fill:'Cream cheese (3 layers)',top:'Cream cheese',deco:'Toasted coconut and pecans'},{nuts:true}),
+ X('cakes','P07','strawberry_shortcake','Strawberry Shortcake',['fruit','creamy'],S('6" · 8" · 10" · 12" · Rebanada','6" · 8" · 10" · 12" · Slice'),
+  {tl:'Vainilla · Fresas · Crema batida',d:'Ligero y fresco: vainilla con fresas frescas y crema batida.',base:'Vainilla (3 capas)',fill:'Fresas frescas y crema batida (2 capas)',top:'Crema batida'},
+  {tl:'Vanilla · Strawberries · Whipped Cream',d:'Light and fresh: vanilla cake with fresh strawberries and whipped cream.',base:'Vanilla (3 layers)',fill:'Fresh strawberries and whipped cream (2 layers)',top:'Whipped cream'}),
+ X('cakes','P08','bts','Better Than Sex',['fruit','creamy'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Vainilla · Banana · Piña',d:'Vainilla con crema de banana, banana y piña, cubierto con coco tostado y pecanas.',base:'Vainilla (3 capas)',fill:'Crema de banana, banana y piña (2 capas)',top:'Crema batida',deco:'Coco tostado y pecanas'},
+  {tl:'Vanilla · Banana · Pineapple',d:'Vanilla cake with banana cream, banana and pineapple, finished with toasted coconut and pecans.',base:'Vanilla (3 layers)',fill:'Banana cream, banana and pineapple (2 layers)',top:'Whipped cream',deco:'Toasted coconut and pecans'},{nuts:true}),
+ X('cakes','P09','strawberry_lovers_cake','Strawberry Lovers',['fruit'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Fresa · Mousse de fresa',d:'Todo fresa: pan de fresa con mousse de fresa por dentro y por fuera.',base:'Fresa (3 capas)',fill:'Mousse de fresa (2 capas)',top:'Mousse de fresa'},
+  {tl:'Strawberry · Strawberry Mousse',d:'All strawberry: strawberry cake with strawberry mousse inside and out.',base:'Strawberry (3 layers)',fill:'Strawberry mousse (2 layers)',top:'Strawberry mousse'}),
+ X('cakes','P10','oreo_mousse','Oreo Mousse',['chocolate','kids'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Chocolate · Oreo',d:'Pan de chocolate con mousse de Oreo por dentro y por fuera.',base:'Chocolate (3 capas)',fill:'Mousse de Oreo (2 capas)',top:'Mousse de Oreo'},
+  {tl:'Chocolate · Oreo',d:'Chocolate cake with Oreo mousse inside and out.',base:'Chocolate (3 layers)',fill:'Oreo mousse (2 layers)',top:'Oreo mousse'}),
+ X('cakes','P11','chocolate_raspberry','Chocolate Raspberry',['chocolate','fruit'],S('6" · 8" · 10"','6" · 8" · 10"'),
+  {tl:'Chocolate · Frambuesa',d:'Chocolate con mousse de frambuesa: dulce con un toque ácido.',base:'Chocolate (3 capas)',fill:'Mousse de frambuesa (2 capas)',top:'French buttercream de chocolate'},
+  {tl:'Chocolate · Raspberry',d:'Chocolate with raspberry mousse: sweet with a tart touch.',base:'Chocolate (3 layers)',fill:'Raspberry mousse (2 layers)',top:'Chocolate French buttercream'}),
+ X('cakes','P12','vanilla_raspberry','Vanilla Raspberry',['fruit'],S('6" · 8" · 10"','6" · 8" · 10"'),
+  {tl:'Vainilla · Frambuesa',d:'Vainilla con mousse de frambuesa, fresco y ligero.',base:'Vainilla (3 capas)',fill:'Mousse de frambuesa (2 capas)',top:'French buttercream de vainilla'},
+  {tl:'Vanilla · Raspberry',d:'Vanilla with raspberry mousse, fresh and light.',base:'Vanilla (3 layers)',fill:'Raspberry mousse (2 layers)',top:'Vanilla French buttercream'}),
+ X('cakes','P13','coconut_cream','Coconut Cream',['creamy'],S('6" · 8" · 10"','6" · 8" · 10"'),{tl:'Coco',d:'Pastel cremoso con sabor a coco.'},{tl:'Coconut',d:'A creamy coconut cake.'}),
+ X('cakes','P14','lemon_cake','Lemon',['fruit'],S('6" · 8" · 10"','6" · 8" · 10"'),{tl:'Limón',d:'Fresco y ligero, con sabor a limón.'},{tl:'Lemon',d:'Fresh and light, with lemon flavor.'}),
+ X('cakes','P15','biscoff_cake','Biscoff',['caramel'],S('6" · 8" · 10"','6" · 8" · 10"'),{tl:'Galleta Biscoff',d:'Con el sabor de la galleta caramelizada Biscoff.'},{tl:'Biscoff Cookie',d:'With the flavor of caramelized Biscoff cookies.'}),
+ X('cakes','P16','german_chocolate','German Chocolate',['chocolate'],S('6" · 10"','6" · 10"'),{tl:'Chocolate',d:'Pastel de chocolate estilo German Chocolate.'},{tl:'Chocolate',d:'A German Chocolate style cake.'}),
+ X('cakes','P17','chocolate_dubai','Chocolate Dubai',['chocolate'],S('6" · 8"','6" · 8"'),{tl:'Chocolate · Dubái',d:'Chocolate con el sabor del famoso chocolate de Dubái.'},{tl:'Chocolate · Dubai',d:'Chocolate with the flavor of the famous Dubai chocolate.'}),
+ X('cakes','P18','drip_cake','Drip Cake',['kids'],S('Listo para llevar','Ready to go'),{tl:'Decoración drip',d:'Pastel listo para llevar con decoración de chorreado.'},{tl:'Drip decoration',d:'A ready-to-go cake with a drip finish.'}),
+ X('cakes','P19','gender_reveal_cake','Gender Reveal',['kids'],S('6"','6"'),{tl:'Vainilla · Sorpresa',d:'Por fuera, vainilla. Por dentro, el color que revela si es niño o niña.'},{tl:'Vanilla · Surprise',d:'Vanilla on the outside. Inside, the color that reveals boy or girl.'}),
+ X('cakes','P20','sheet_cake','Sheet Cake',[],S('1/4 · 1/2 · Sheet completa','1/4 · 1/2 · Full sheet'),{tl:'Para grupos grandes',d:'Pastel rectangular para fiestas. También en Italian, Red Velvet y Carrot.'},{tl:'For big groups',d:'A rectangular party cake. Also in Italian, Red Velvet and Carrot.'}),
+ X('cakes','P21','tres_leches_sheet','Tres Leches',['creamy'],S('1/4 sheet','1/4 sheet'),{tl:'Tres leches',d:'Bizcocho húmedo bañado en tres leches.'},{tl:'Three milks',d:'Moist sponge soaked in three milks.'}),
+ X('cakes','P22','turtle_cheesecake','Turtle Cheesecake',['caramel','creamy'],S('Entero','Whole'),{tl:'Cheesecake',d:'Cheesecake entero estilo turtle.'},{tl:'Cheesecake',d:'A whole turtle-style cheesecake.'}),
+ X('cakes','P23','oreo_cheesecake','Oreo Cheesecake',['chocolate','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Oreo',d:'Cheesecake entero con galleta Oreo.'},{tl:'Cheesecake · Oreo',d:'A whole cheesecake with Oreo cookies.'}),
+
+ X('pastries','T01','creme_brulee','Crème Brûlée',['creamy'],S('Individual','Single'),{tl:'Vainilla · Caramelo',d:'Crema de vainilla con su capa de azúcar caramelizada.'},{tl:'Vanilla · Caramel',d:'Vanilla custard with a crackly caramelized sugar top.'}),
+ X('pastries','T02','cannoli','Cannoli',['creamy'],S('Chico · Grande','Small · Large'),{tl:'Clásico italiano',d:'Masa crujiente rellena de crema dulce.'},{tl:'Italian classic',d:'Crispy shell filled with sweet cream.'}),
+ X('pastries','T03','choc_strawberries','Chocolate Covered Strawberries',['chocolate','fruit'],S('Pieza · 1/2 docena · 1 docena','Single · Half dozen · Dozen'),{tl:'Fresa · Chocolate',d:'Fresas frescas bañadas en chocolate. Ideales para regalar.'},{tl:'Strawberry · Chocolate',d:'Fresh strawberries dipped in chocolate. Perfect as a gift.'}),
+ X('pastries','T04','eclair','Éclair',['chocolate','creamy'],S('Individual','Single'),{tl:'Clásico francés',d:'Pasta choux rellena de crema, cubierta de chocolate.'},{tl:'French classic',d:'Choux pastry filled with cream, topped with chocolate.'}),
+ X('pastries','T05','dubai_eclair','Dubai Éclair',['chocolate'],S('Individual','Single'),{tl:'Éclair · Dubái',d:'Nuestro éclair con el sabor del chocolate de Dubái.'},{tl:'Éclair · Dubai',d:'Our éclair with the flavor of Dubai chocolate.'}),
+ X('pastries','T06','cream_puff','Cream Puff',['creamy'],S('Individual','Single'),{tl:'Pasta choux · Crema',d:'Bolita de pasta choux rellena de crema.'},{tl:'Choux · Cream',d:'A choux puff filled with cream.'}),
+ X('pastries','T07','tiramisu','Tiramisú',['creamy'],S('Individual','Single'),{tl:'Café · Mascarpone',d:'El postre italiano de café y crema.'},{tl:'Coffee · Mascarpone',d:'The Italian coffee-and-cream dessert.'}),
+ X('pastries','T08','lemon_bar','Lemon Bar',['fruit'],S('Individual','Single'),{tl:'Limón',d:'Base de galleta con crema de limón.'},{tl:'Lemon',d:'Shortbread base with lemon filling.'}),
+ X('pastries','T09','tres_leches_personal','Tres Leches Personal',['creamy'],S('Individual','Single'),{tl:'Tres leches',d:'Bizcocho bañado en tres leches, en porción individual.'},{tl:'Three milks',d:'Sponge soaked in three milks, single serving.'}),
+ X('pastries','T10','cake_pops','Cake Pops',['kids'],S('Por pieza','Each'),{tl:'Pastel en paleta',d:'Bolitas de pastel cubiertas, en palito.'},{tl:'Cake on a stick',d:'Coated cake bites on a stick.'}),
+ X('pastries','T11','fruit_tart','Fruit Tart',['fruit'],S('Individual','Single'),{tl:'Fruta fresca',d:'Tarta con crema y fruta fresca.'},{tl:'Fresh fruit',d:'A tart with cream and fresh fruit.'}),
+ X('pastries','T12','key_lime_tart','Key Lime Tart',['fruit'],S('Individual','Single'),{tl:'Limón · Tarta',d:'Tarta de key lime, fresca y cremosa.'},{tl:'Key lime · Tart',d:'A fresh, creamy key lime tart.'}),
+ X('pastries','T13','choc_raspberry_tart','Chocolate Raspberry Tart',['chocolate','fruit'],S('Individual','Single'),{tl:'Chocolate · Frambuesa',d:'Tarta de chocolate con frambuesa.'},{tl:'Chocolate · Raspberry',d:'A chocolate tart with raspberry.'}),
+ X('pastries','T14','pistachio_raspberry_tart','Pistachio Raspberry Tart',['fruit'],S('Individual','Single'),{tl:'Pistache · Frambuesa',d:'Tarta de pistache con frambuesa.'},{tl:'Pistachio · Raspberry',d:'A pistachio tart with raspberry.'},{nuts:true}),
+ X('pastries','T15','blueberry_tart','Blueberry Tart',['fruit'],S('Individual','Single'),{tl:'Blueberry',d:'Tarta con blueberries.'},{tl:'Blueberry',d:'A blueberry tart.'}),
+ X('pastries','T16','raspberry_fruit','Raspberry Fruit',['fruit'],S('Individual','Single'),{tl:'Frambuesa',d:'Postre de frambuesa.'},{tl:'Raspberry',d:'A raspberry dessert.'}),
+ X('pastries','T17','lemoncello','Lemoncello',['fruit'],S('Individual','Single'),{tl:'Limón',d:'Postre con sabor a limoncello.'},{tl:'Lemon',d:'A limoncello-flavored dessert.'}),
+ X('pastries','T18','banana_pudding','Banana Pudding',['creamy','kids'],S('Porción','Serving'),{tl:'Banana · Vainilla',d:'Pudín de vainilla con banana y galleta.'},{tl:'Banana · Vanilla',d:'Vanilla pudding with banana and cookies.'}),
+
+ X('custom','C01','bento_cake','Bento Cake',['kids'],S('Mini, en caja','Mini, boxed'),{tl:'Mini pastel personalizado',d:'Mini pastel en su cajita, decorado a su gusto. Ideal para regalar.'},{tl:'Personalized mini cake',d:'A mini cake in its own box, decorated your way. Great as a gift.'}),
+ X('custom','C02','bento_cheesecake','Bento Cheesecake',['creamy'],S('Mini, en caja','Mini, boxed'),{tl:'Mini cheesecake personalizado',d:'Mini cheesecake en su cajita, decorado a su gusto.'},{tl:'Personalized mini cheesecake',d:'A mini cheesecake in its own box, decorated your way.'}),
+ X('custom','C03','gender_reveal_bento','Gender Reveal Bento',['kids'],S('Mini, en caja','Mini, boxed'),{tl:'Mini pastel sorpresa',d:'Mini pastel que revela por dentro si es niño o niña.'},{tl:'Mini surprise cake',d:'A mini cake that reveals boy or girl inside.'}),
+ X('custom','C04','tiramisu_sheet','Tiramisú en Sheet',['creamy'],S('1/4 · 1/2 sheet','1/4 · 1/2 sheet'),{tl:'Para eventos',d:'Tiramisú en charola para compartir en su evento.'},{tl:'For events',d:'Tiramisu by the tray to share at your event.'})
+];
+P.push(...EXTRA);
+
+
+let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
+try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
+const $ = id => document.getElementById(id);
+
+function save(){ try { localStorage.setItem('ytb-cat', JSON.stringify({lang})); } catch(e) {} }
+
+function renderTabs(){
+  $('tabs').innerHTML = CATS.map(c => {
+    const n = P.filter(p => p.cat === c).length;
+    const extra = n ? `<span class="count">${n}</span>` : `<span class="soon">${T[lang].soon}</span>`;
+    return `<button class="tab" role="tab" id="tab-${c}" aria-selected="${c===cat}" data-c="${c}">${T[lang].tabs[c]}${extra}</button>`;
+  }).join('');
+}
+function renderChips(){
+  const items = P.filter(p => p.cat === cat);
+  const used = [...new Set(items.flatMap(p => p.tags))];
+  const order = ['chocolate','fruit','creamy','caramel','kids'].filter(t => used.includes(t));
+  $('chips').hidden = !items.length;
+  $('chips').innerHTML = [`<button class="chip" id="chip-all" aria-pressed="${!tag}" data-t="">${T[lang].all}</button>`]
+    .concat(order.map(t => `<button class="chip" id="chip-${t}" aria-pressed="${tag===t}" data-t="${t}">${T[lang].tags[t]}</button>`)).join('');
+}
+function renderGrid(){
+  $('h1').textContent = T[lang].h1[cat];
+  const items = P.filter(p => p.cat === cat);
+  $('sub').textContent = T[lang].sub[cat] || '';
+  list = items.filter(p => !tag || p.tags.includes(tag));
+  if (!items.length){
+    $('content').innerHTML = `<div class="soonbox"><div class="dots"><i></i><i></i><i></i></div><h2>${T[lang].soonTitle}</h2><p>${T[lang].soonText[cat]}</p></div>`;
+    return;
+  }
+  $('content').innerHTML = `<div class="grid">` + list.map((p,i) => `
+    <button class="card" data-i="${i}" id="card-${p.id}">
+      <div class="ph">${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp" alt="${p.name}" loading="lazy">`}</div>
+      <h3>${p.name}</h3>
+      <div class="tl">${p[lang].tl}</div>
+    </button>`).join('') + `</div>`;
+}
+const CAM = '<svg viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 9l3-5h10l3 5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="23" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>';
+function pend(p){ return `<div class="pend">${CAM}<span>${T[lang].pending}</span><code>${p.code}</code></div>`; }
+function renderAll(){
+  document.documentElement.lang = lang;
+  $('lang-es').setAttribute('aria-pressed', lang==='es'); $('lang-en').setAttribute('aria-pressed', lang==='en');
+  renderTabs(); renderChips(); renderGrid();
+  if (current >= 0) openP(current, true);
+}
+function openP(i, keepView){
+  current = (i + list.length) % list.length;
+  if (!keepView) view = 'out';
+  const p = list[current], L = p[lang], t = T[lang];
+  const has = p.photo !== false;
+  $('p-img').hidden = !has; $('pend-box').hidden = has; $('pend-box').innerHTML = has ? '' : pend(p);
+  document.querySelector('.view').hidden = !has;
+  if (has){ $('p-img').src = `img/${p.id}-${view}.webp`; $('p-img').alt = `${p.name} — ${view==='out'?t.out:t.in}`; }
+  $('v-out').textContent = t.out; $('v-in').textContent = t.in;
+  $('v-out').setAttribute('aria-pressed', view==='out'); $('v-in').setAttribute('aria-pressed', view==='in');
+  $('p-cat').textContent = t.catLabel[p.cat]; $('p-name').textContent = p.name; $('p-tl').textContent = L.tl; $('p-desc').textContent = L.d;
+  const rows = ['base','fill','top','deco'].filter(k => L[k]).map(k => [t.rows[k], L[k]]);
+  if (p.sz) rows.push([t.rows.sz, p.sz[lang]]);
+  $('p-rows').innerHTML = rows.map(([a,b]) => `<div class="row"><dt>${a}</dt><dd>${b}</dd></div>`).join('');
+  $('p-allergy').hidden = false; $('p-allergy').innerHTML = p.nuts ? t.allergy : t.allergyAll;
+  $('prev').textContent = t.prev; $('next').textContent = t.next;
+  $('sheet').hidden = false; document.body.style.overflow = 'hidden';
+}
+function closeP(){ $('sheet').hidden = true; current = -1; document.body.style.overflow = ''; }
+
+document.addEventListener('click', e => {
+  const tb = e.target.closest('.tab'); if (tb){ cat = tb.dataset.c; tag = null; renderAll(); return; }
+  const ch = e.target.closest('.chip'); if (ch){ tag = ch.dataset.t || null; renderChips(); renderGrid(); return; }
+  const cd = e.target.closest('.card'); if (cd){ openP(+cd.dataset.i); return; }
+});
+$('lang-es').onclick = () => { lang='es'; save(); renderAll(); };
+$('lang-en').onclick = () => { lang='en'; save(); renderAll(); };
+$('close').onclick = closeP;
+$('sheet').addEventListener('click', e => { if (e.target.id === 'sheet') closeP(); });
+$('prev').onclick = () => openP(current - 1);
+$('next').onclick = () => openP(current + 1);
+$('v-out').onclick = () => { view='out'; openP(current, true); };
+$('v-in').onclick = () => { view='in'; openP(current, true); };
+document.addEventListener('keydown', e => {
+  if ($('sheet').hidden) return;
+  if (e.key === 'Escape') closeP();
+  if (e.key === 'ArrowRight') openP(current + 1);
+  if (e.key === 'ArrowLeft') openP(current - 1);
+});
+let sx = null;
+$('sheet').addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+$('sheet').addEventListener('touchend', e => {
+  if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
+  if (Math.abs(dx) > 60) openP(current + (dx < 0 ? 1 : -1));
+});
+renderAll();
+</script>
+
+</body></html>
+</body>
+</html>
