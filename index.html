@@ -165,7 +165,7 @@ main{padding-block:22px 40px}
 <script>
 const T = {
   es:{h1:{cupcakes:'Nuestros cupcakes',cakes:'Nuestros pasteles',slices:'Por rebanada',pastries:'Nuestros pastries',custom:'Custom cakes'},
-      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',slices:'Toca una rebanada para verla de lado y desde arriba.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.'},
+      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',slices:'Toca una rebanada para verla por dentro y desde arriba.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.'},
       tabs:{cupcakes:'Cupcakes',cakes:'Pasteles',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes'},
       soon:'Pronto', all:'Todos',
       tags:{chocolate:'Chocolate',fruit:'Frutales',creamy:'Cremosos',caramel:'Caramelo',kids:'Para niños'},
@@ -177,7 +177,7 @@ const T = {
       allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
       cat:'Cupcake'},
   en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',slices:'By the slice',pastries:'Our pastries',custom:'Custom cakes'},
-      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',slices:'Tap a slice to see it from the side and from above.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
+      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',slices:'Tap a slice to see it inside and from above.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
       tabs:{cupcakes:'Cupcakes',cakes:'Cakes',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes'},
       soon:'Soon', all:'All',
       tags:{chocolate:'Chocolate',fruit:'Fruity',creamy:'Creamy',caramel:'Caramel',kids:'Kids’ favorites'},
@@ -304,9 +304,17 @@ const EXTRA=[
 ];
 P.push(...EXTRA);
 // ---- Slices (sesión nov-2026). Nombres en blanco: se llenan en la sucursal. img/{id}-out = de lado, img/{id}-in = desde arriba
-for (let i=1;i<=9;i++){ const c='S'+String(i).padStart(2,'0');
-  P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name:c,tags:[],photo:true,views:2,
-    es:{tl:'Nombre por confirmar',d:''},en:{tl:'Name to be confirmed',d:''}}); }
+{ // [código, nombre, pastel entero del que sale la info (o null), tiene foto, contiene nuez]
+  const strip=o=>{const r={}; for(const k in o) r[k]=typeof o[k]==='string'?o[k].replace(/\s*\(\d+ (capas|layers)\)/g,''):o[k]; return r;};
+  const SL=[['S01','Turtle Cheesecake','turtle_cheesecake',1,1],['S02','Strawberry Shortcake','strawberry_shortcake',1,0],['S03','BTS','bts',1,1],
+    ['S04','Red Velvet','red_velvet_cake',1,0],['S05','Vanilla Buttercream','vanilla_buttercream',1,0],['S06','Carrot Cake','carrot_cake',1,1],
+    ['S07','Strawberry Lovers','strawberry_lovers_cake',1,0],['S08','Oreo Cheesecake','oreo_cheesecake',1,0],['S09','Chocolate Buttercake',null,1,0],
+    ['S11','NYS Cheesecake',null,0,0],['S12','Biscoff Cheesecake',null,0,0],['S13','Chocolate Ganache','chocolate_ganache',0,0],['S14','Chocolate Oreo Mousse','oreo_mousse',0,0]];
+  const blank={es:{tl:'',d:''},en:{tl:'',d:''}};
+  SL.forEach(([c,name,src,ph,nuts])=>{ const base=src&&P.find(x=>x.id===src)||blank;
+    P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name,tags:base.tags||[],photo:!!ph,views:2,nuts:!!nuts||!!base.nuts,
+      es:strip(base.es),en:strip(base.en)}); });
+}
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
 const PHOTOS={red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,italian_cream:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
