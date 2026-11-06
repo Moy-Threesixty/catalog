@@ -164,32 +164,32 @@ main{padding-block:22px 40px}
 
 <script>
 const T = {
-  es:{h1:{cupcakes:'Nuestros cupcakes',cakes:'Nuestros pasteles',pastries:'Nuestros pastries',custom:'Custom cakes'},
-      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.'},
-      tabs:{cupcakes:'Cupcakes',cakes:'Pasteles',pastries:'Pastries',custom:'Custom Cakes'},
+  es:{h1:{cupcakes:'Nuestros cupcakes',cakes:'Nuestros pasteles',slices:'Por rebanada',pastries:'Nuestros pastries',custom:'Custom cakes'},
+      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',slices:'Toca una rebanada para verla de lado y desde arriba.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.'},
+      tabs:{cupcakes:'Cupcakes',cakes:'Pasteles',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes'},
       soon:'Pronto', all:'Todos',
       tags:{chocolate:'Chocolate',fruit:'Frutales',creamy:'Cremosos',caramel:'Caramelo',kids:'Para niños'},
       soonTitle:'Muy pronto', soonText:{cakes:'Estamos preparando las fotos de nuestros pasteles. Pregunte a nuestro equipo por sabores y tamaños.',
         pastries:'Nuestra selección de pastries llegará muy pronto a este catálogo.',custom:'Pastel personalizado para su evento: pregunte a nuestro equipo y le tomamos el pedido.'},
       out:'Por fuera', in:'Por dentro', side:'De lado', top:'Desde arriba', prev:'‹ Anterior', next:'Siguiente ›',
-      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto próximamente', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',pastries:'Pastry',custom:'Custom cake'},
+      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto próximamente', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
       allergy:'<b>ALERGIAS:</b> contiene nuez y avellana. Si tiene alguna alergia, pregunte a nuestro equipo.',
       allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
       cat:'Cupcake'},
-  en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',pastries:'Our pastries',custom:'Custom cakes'},
-      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
-      tabs:{cupcakes:'Cupcakes',cakes:'Cakes',pastries:'Pastries',custom:'Custom Cakes'},
+  en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',slices:'By the slice',pastries:'Our pastries',custom:'Custom cakes'},
+      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',slices:'Tap a slice to see it from the side and from above.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
+      tabs:{cupcakes:'Cupcakes',cakes:'Cakes',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes'},
       soon:'Soon', all:'All',
       tags:{chocolate:'Chocolate',fruit:'Fruity',creamy:'Creamy',caramel:'Caramel',kids:'Kids’ favorites'},
       soonTitle:'Coming soon', soonText:{cakes:'We’re photographing our cakes. Ask our team about flavors and sizes.',
         pastries:'Our pastry selection is coming to this catalog soon.',custom:'A custom cake for your event: ask our team and we’ll take your order.'},
       out:'Outside', in:'Inside', side:'Side', top:'From above', prev:'‹ Previous', next:'Next ›',
-      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo coming soon', catLabel:{cupcakes:'Cupcake',cakes:'Cake',pastries:'Pastry',custom:'Custom cake'},
+      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo coming soon', catLabel:{cupcakes:'Cupcake',cakes:'Cake',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
       allergy:'<b>ALLERGIES:</b> contains nuts and hazelnut. If you have an allergy, please ask our team.',
       allergyAll:'<b>ALLERGIES:</b> if you have an allergy, please ask our team before ordering.',
       cat:'Cupcake'}
 };
-const CATS = ['cupcakes','cakes','pastries','custom'];
+const CATS = ['cupcakes','cakes','slices','pastries','custom'];
 const P = [
  {id:'black_forest',name:'Black Forest',tags:['chocolate','fruit'],
   es:{tl:'Chocolate · Cereza · Crema batida',d:'El clásico Selva Negra en cupcake: chocolate, cereza por dentro y crema batida ligera.',base:'Chocolate',fill:'Puré de cereza con crema batida',top:'Crema batida',deco:'Cereza bañada en chocolate y virutas de chocolate oscuro'},
@@ -303,6 +303,10 @@ const EXTRA=[
  X('custom','C04','tiramisu_sheet','Tiramisú en Sheet',['creamy'],S('1/4 · 1/2 sheet','1/4 · 1/2 sheet'),{tl:'Para eventos',d:'Tiramisú en charola para compartir en su evento.'},{tl:'For events',d:'Tiramisu by the tray to share at your event.'})
 ];
 P.push(...EXTRA);
+// ---- Slices (sesión nov-2026). Nombres en blanco: se llenan en la sucursal. img/{id}-out = de lado, img/{id}-in = desde arriba
+for (let i=1;i<=9;i++){ const c='S'+String(i).padStart(2,'0');
+  P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name:c,tags:[],photo:true,views:2,
+    es:{tl:'Nombre por confirmar',d:''},en:{tl:'Name to be confirmed',d:''}}); }
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
 const PHOTOS={red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,italian_cream:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
