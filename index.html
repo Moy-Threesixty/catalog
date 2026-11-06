@@ -365,7 +365,7 @@ function openP(i, keepView){
   const has = p.photo !== false;
   $('p-img').hidden = !has; $('pend-box').hidden = has; $('pend-box').innerHTML = has ? '' : pend(p);
   document.querySelector('.view').hidden = !has || p.views === 1;
-  const lo = p.views === 2 ? t.side : t.out, li = p.views === 2 ? t.top : t.in;
+  const lo = p.cat === 'slices' ? t.in : p.views === 2 ? t.side : t.out, li = p.views === 2 ? t.top : t.in;
   if (has){ $('p-img').src = `img/${p.id}-${view}.webp`; $('p-img').alt = `${p.name} — ${view==='out'?lo:li}`; }
   $('v-out').textContent = lo; $('v-in').textContent = li;
   $('v-out').setAttribute('aria-pressed', view==='out'); $('v-in').setAttribute('aria-pressed', view==='in');
