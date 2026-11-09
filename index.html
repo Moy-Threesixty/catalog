@@ -261,9 +261,9 @@ const EXTRA=[
  X('cakes','P07','strawberry_shortcake','Strawberry Shortcake',['fruit','creamy'],S('6" · 8" · 10" · 12" · Rebanada','6" · 8" · 10" · 12" · Slice'),
   {tl:'Vainilla · Fresas · Crema batida',d:'Ligero y fresco: vainilla con fresas frescas y crema batida.',base:'Vainilla (3 capas)',fill:'Fresas frescas y crema batida (2 capas)',top:'Crema batida'},
   {tl:'Vanilla · Strawberries · Whipped Cream',d:'Light and fresh: vanilla cake with fresh strawberries and whipped cream.',base:'Vanilla (3 layers)',fill:'Fresh strawberries and whipped cream (2 layers)',top:'Whipped cream'}),
- X('cakes','P08','bts','Better Than Sex',['fruit','creamy'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
-  {tl:'Vainilla · Banana · Piña',d:'Vainilla con crema de banana, banana y piña, cubierto con coco tostado y pecanas.',base:'Vainilla (3 capas)',fill:'Crema de banana, banana y piña (2 capas)',top:'Crema batida',deco:'Coco tostado y pecanas'},
-  {tl:'Vanilla · Banana · Pineapple',d:'Vanilla cake with banana cream, banana and pineapple, finished with toasted coconut and pecans.',base:'Vanilla (3 layers)',fill:'Banana cream, banana and pineapple (2 layers)',top:'Whipped cream',deco:'Toasted coconut and pecans'},{nuts:true}),
+ X('cakes','P08','bts','BTS',['fruit','creamy'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
+  {tl:'Better Than Sex · Banana · Piña',d:'Vainilla con crema de banana, banana y piña, cubierto con coco tostado y pecanas.',base:'Vainilla (3 capas)',fill:'Crema de banana, banana y piña (2 capas)',top:'Crema batida',deco:'Coco tostado y pecanas'},
+  {tl:'Better Than Sex · Banana · Pineapple',d:'Vanilla cake with banana cream, banana and pineapple, finished with toasted coconut and pecans.',base:'Vanilla (3 layers)',fill:'Banana cream, banana and pineapple (2 layers)',top:'Whipped cream',deco:'Toasted coconut and pecans'},{nuts:true}),
  X('cakes','P09','strawberry_lovers_cake','Strawberry Lovers',['fruit'],S('6" · 8" · 10" · Rebanada','6" · 8" · 10" · Slice'),
   {tl:'Fresa · Mousse de fresa',d:'Todo fresa: pan de fresa con mousse de fresa por dentro y por fuera.',base:'Fresa (3 capas)',fill:'Mousse de fresa (2 capas)',top:'Mousse de fresa'},
   {tl:'Strawberry · Strawberry Mousse',d:'All strawberry: strawberry cake with strawberry mousse inside and out.',base:'Strawberry (3 layers)',fill:'Strawberry mousse (2 layers)',top:'Strawberry mousse'}),
@@ -287,6 +287,8 @@ const EXTRA=[
  X('cakes','P21','tres_leches_sheet','Tres Leches',['creamy'],S('1/4 sheet','1/4 sheet'),{tl:'Tres leches',d:'Bizcocho húmedo bañado en tres leches.'},{tl:'Three milks',d:'Moist sponge soaked in three milks.'}),
  X('cakes','P22','turtle_cheesecake','Turtle Cheesecake',['caramel','creamy'],S('Entero','Whole'),{tl:'Cheesecake',d:'Cheesecake entero estilo turtle.'},{tl:'Cheesecake',d:'A whole turtle-style cheesecake.'}),
  X('cakes','P23','oreo_cheesecake','Oreo Cheesecake',['chocolate','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Oreo',d:'Cheesecake entero con galleta Oreo.'},{tl:'Cheesecake · Oreo',d:'A whole cheesecake with Oreo cookies.'}),
+ X('cakes','P24','biscoff_cheesecake','Biscoff Cheesecake',['caramel','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Biscoff',d:'Cheesecake entero con galleta caramelizada Biscoff.'},{tl:'Cheesecake · Biscoff',d:'A whole cheesecake with caramelized Biscoff cookies.'}),
+ X('cakes','P25','ny_cheesecake','NY Style Cheesecake',['creamy'],S('Entero','Whole'),{tl:'Cheesecake estilo New York',d:'Cheesecake clásico estilo New York, cremoso y denso.'},{tl:'New York style cheesecake',d:'Classic New York style cheesecake, rich and creamy.'}),
 
  X('pastries','T01','creme_brulee','Crème Brûlée',['creamy'],S('Individual','Single'),{tl:'Vainilla · Caramelo',d:'Crema de vainilla con su capa de azúcar caramelizada.'},{tl:'Vanilla · Caramel',d:'Vanilla custard with a crackly caramelized sugar top.'}),
  X('pastries','T02','cannoli','Cannoli',['creamy'],S('Chico · Grande','Small · Large'),{tl:'Clásico italiano',d:'Masa crujiente rellena de crema dulce.'},{tl:'Italian classic',d:'Crispy shell filled with sweet cream.'}),
@@ -317,7 +319,7 @@ P.push(...EXTRA);
   const SL=[['S01','Turtle Cheesecake','turtle_cheesecake',1,1],['S02','Strawberry Shortcake','strawberry_shortcake',1,0],['S03','BTS','bts',1,1],
     ['S04','Red Velvet','red_velvet_cake',1,0],['S05','Vanilla Buttercream','vanilla_buttercream',1,0],['S06','Carrot Cake','carrot_cake',1,1],
     ['S07','Strawberry Lovers','strawberry_lovers_cake',1,0],['S08','Oreo Cheesecake','oreo_cheesecake',1,0],['S09','Chocolate Buttercake',null,1,0],
-    ['S11','NYS Cheesecake',null,0,0],['S12','Biscoff Cheesecake',null,0,0],['S13','Chocolate Ganache','chocolate_ganache',0,0],['S14','Chocolate Oreo Mousse','oreo_mousse',0,0]];
+    ['S11','NYS Cheesecake','ny_cheesecake',0,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',0,0],['S13','Chocolate Ganache','chocolate_ganache',0,0],['S14','Chocolate Oreo Mousse','oreo_mousse',0,0]];
   const blank={es:{tl:'',d:''},en:{tl:'',d:''}};
   SL.forEach(([c,name,src,ph,nuts])=>{ const base=src&&P.find(x=>x.id===src)||blank;
     P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name,tags:base.tags||[],photo:!!ph,views:2,nuts:!!nuts||!!base.nuts,
@@ -325,7 +327,7 @@ P.push(...EXTRA);
 }
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
 const SEASONAL={choc_strawberries:1};
-const PHOTOS={choc_strawberries:1,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,italian_cream:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
+const PHOTOS={choc_strawberries:1,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
