@@ -349,7 +349,7 @@ P.push(...EXTRA);
   const SL=[['S01','Turtle Cheesecake','turtle_cheesecake',1,1],['S02','Strawberry Shortcake','strawberry_shortcake',1,0],['S03','BTS','bts',1,1],
     ['S04','Red Velvet','red_velvet_cake',1,0],['S05','Vanilla Buttercream','vanilla_buttercream',1,0],['S06','Carrot Cake','carrot_cake',1,1],
     ['S07','Strawberry Lovers','strawberry_lovers_cake',1,0],['S08','Oreo Cheesecake','oreo_cheesecake',1,0],['S09','Chocolate Buttercake',null,1,0],
-    ['S11','NYS Cheesecake','ny_cheesecake',0,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',0,0],['S13','Chocolate Ganache','chocolate_ganache',1,0],['S14','Chocolate Oreo Mousse','oreo_mousse',1,0]];
+    ['S11','NYS Cheesecake','ny_cheesecake',0,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',1,0],['S13','Chocolate Ganache','chocolate_ganache',1,0],['S14','Chocolate Oreo Mousse','oreo_mousse',1,0]];
   const blank={es:{tl:'',d:''},en:{tl:'',d:''}};
   SL.forEach(([c,name,src,ph,nuts])=>{ const base=src&&P.find(x=>x.id===src)||blank;
     P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name,tags:base.tags||[],photo:!!ph,views:2,nuts:!!nuts||!!base.nuts,
