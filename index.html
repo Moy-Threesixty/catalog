@@ -349,7 +349,7 @@ P.push(...EXTRA);
   const SL=[['S01','Turtle Cheesecake','turtle_cheesecake',1,1],['S02','Strawberry Shortcake','strawberry_shortcake',1,0],['S03','BTS','bts',1,1],
     ['S04','Red Velvet','red_velvet_cake',1,0],['S05','Vanilla Buttercream','vanilla_buttercream',1,0],['S06','Carrot Cake','carrot_cake',1,1],
     ['S07','Strawberry Lovers','strawberry_lovers_cake',1,0],['S08','Oreo Cheesecake','oreo_cheesecake',1,0],['S09','Chocolate Buttercake',null,1,0],
-    ['S11','NYS Cheesecake','ny_cheesecake',0,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',0,0],['S13','Chocolate Ganache','chocolate_ganache',0,0],['S14','Chocolate Oreo Mousse','oreo_mousse',0,0]];
+    ['S11','NYS Cheesecake','ny_cheesecake',0,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',0,0],['S13','Chocolate Ganache','chocolate_ganache',1,0],['S14','Chocolate Oreo Mousse','oreo_mousse',1,0]];
   const blank={es:{tl:'',d:''},en:{tl:'',d:''}};
   SL.forEach(([c,name,src,ph,nuts])=>{ const base=src&&P.find(x=>x.id===src)||blank;
     P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name,tags:base.tags||[],photo:!!ph,views:2,nuts:!!nuts||!!base.nuts,
@@ -359,7 +359,8 @@ P.push(...EXTRA);
 const SEASONAL={choc_strawberries:1};
 const GROUP={coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
 P.forEach(p => { if (GROUP[p.id]) p.group = GROUP[p.id]; });
-const PHOTOS={choc_strawberries:1,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
+P.forEach(p => { if (p.id==='turtle_cheesecake') p.nuts = true; });
+const PHOTOS={choc_strawberries:1,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
