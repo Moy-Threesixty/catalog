@@ -62,11 +62,24 @@ main{padding-block:22px 40px}
 .card .tl{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--muted);line-height:1.25;min-width:0}
 .card .badge{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);background:var(--blush);border-radius:999px;padding:4px 9px}
 
-.pend{width:100%;height:100%;display:grid;place-items:center;align-content:center;gap:8px;background:var(--ivory);border:1.5px dashed var(--line);border-radius:12px;color:var(--muted);text-align:center;padding:10px}
-.pend svg{width:34%;max-width:72px;height:auto}
-.pend span{font-size:12.5px;font-weight:600;letter-spacing:.04em}
-.pend code{font:700 11px ui-monospace,Menlo,monospace;color:var(--rose);background:var(--blush);border-radius:6px;padding:2px 7px}
-.stage .pend{min-height:300px;border-radius:18px}
+.pend{width:100%;height:100%;display:grid;place-items:center;align-content:center;gap:6px;background:radial-gradient(120% 90% at 50% 40%,var(--paper) 0%,var(--blush) 100%);border-radius:12px;color:var(--wine);text-align:center;padding:12px;position:relative;overflow:hidden}
+.pend .cam{position:relative;width:38%;max-width:84px;color:var(--rose)}
+.pend .cam svg{width:100%;height:auto;display:block}
+.pend .steam{display:block;width:46%;margin:0 auto 4px;color:var(--rose)}
+.pend .steam path{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;opacity:.45;animation:steam 3s ease-in-out infinite}
+.pend .steam path:nth-child(2){animation-delay:1s}.pend .steam path:nth-child(3){animation-delay:2s}
+@keyframes steam{0%,100%{opacity:.25;transform:translateY(2px)}50%{opacity:.7;transform:translateY(-3px)}}
+.pend .pt{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.2vw,22px);line-height:1.1;margin-top:10px}
+.pend .ps{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+.pend .pn{display:none;font-size:15px;line-height:1.45;color:var(--ink);max-width:30ch;margin-top:8px}
+.stage .pend{min-height:320px;border-radius:18px}
+.stage .pend .pt{font-size:30px}.stage .pend .ps{font-size:12px}.stage .pend .pn{display:block}
+.card .ph .season + .pend{padding-top:44px}
+.group{margin-top:34px;display:grid;gap:14px}
+.group header{display:grid;gap:4px;max-width:62ch}
+.group .eb{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+.group h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(26px,3.4vw,34px);line-height:1.05;margin:0;color:var(--wine)}
+.group p{margin:2px 0 0;color:var(--muted);font-size:15px;line-height:1.5}
 .soonbox{background:var(--paper);border-radius:22px;padding:48px 24px;text-align:center;display:grid;gap:10px;justify-items:center;border:1.5px dashed var(--line)}
 .soonbox h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:40px;margin:0;color:var(--wine)}
 .soonbox p{margin:0;color:var(--muted);max-width:46ch;line-height:1.5}
@@ -115,7 +128,7 @@ main{padding-block:22px 40px}
   .card h3{font-size:16px}
   .logo{height:38px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.pend .steam path{animation:none}}
 </style>
 
 <header class="top">
@@ -180,9 +193,14 @@ const T = {
       soonTitle:'Muy pronto', soonText:{cakes:'Estamos preparando las fotos de nuestros pasteles. Pregunte a nuestro equipo por sabores y tamaños.',
         pastries:'Nuestra selección de pastries llegará muy pronto a este catálogo.',custom:'Pastel personalizado para su evento: pregunte a nuestro equipo y le tomamos el pedido.'},
       out:'Por fuera', in:'Por dentro', side:'De lado', top:'Desde arriba', prev:'‹ Anterior', next:'Siguiente ›',
-      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto próximamente', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
+      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto en el horno…', pendSub:'Muy pronto', pendNote:'Ya lo estamos horneando. La foto llega muy pronto.', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
       allergy:'<b>ALERGIAS:</b> contiene nuez y avellana. Si tiene alguna alergia, pregunte a nuestro equipo.',
       allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
+      order:'Por pedido', price:'Precio', priceVal:'Según el tamaño', flavor:'Sabor', flavorVal:'A su elección',
+      groups:{order:{e:'Ya vienen',h:'Hechos por pedido',p:'Estos sabores los horneamos especialmente para usted. Pídalos con nuestro equipo con anticipación y se los tenemos listos para su fecha.'},
+              sheet:{e:'Para compartir',h:'Planchas para fiestas',p:'Para grupos grandes. Se ordenan con anticipación en 1/4, 1/2 o plancha completa, y el precio depende del tamaño.'}},
+      orderNote:'<b>POR PEDIDO:</b> lo horneamos especialmente para usted. Pídalo con nuestro equipo con anticipación.',
+      sheetNote:'<b>POR PEDIDO · PRECIO SEGÚN TAMAÑO:</b> elija 1/4, 1/2 o plancha completa. Pregunte a nuestro equipo el precio de cada tamaño.',
       season:'Por temporada', seasonNote:'<b>POR TEMPORADA:</b> lo preparamos solo en ciertas épocas del año. Pregunte a nuestro equipo si está disponible.',
       cat:'Cupcake'},
   en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',slices:'By the slice',pastries:'Our pastries',custom:'Custom cakes'},
@@ -193,9 +211,14 @@ const T = {
       soonTitle:'Coming soon', soonText:{cakes:'We’re photographing our cakes. Ask our team about flavors and sizes.',
         pastries:'Our pastry selection is coming to this catalog soon.',custom:'A custom cake for your event: ask our team and we’ll take your order.'},
       out:'Outside', in:'Inside', side:'Side', top:'From above', prev:'‹ Previous', next:'Next ›',
-      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo coming soon', catLabel:{cupcakes:'Cupcake',cakes:'Cake',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
+      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo in the oven…', pendSub:'Coming soon', pendNote:'It’s in the oven. The photo is coming soon.', catLabel:{cupcakes:'Cupcake',cakes:'Cake',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
       allergy:'<b>ALLERGIES:</b> contains nuts and hazelnut. If you have an allergy, please ask our team.',
       allergyAll:'<b>ALLERGIES:</b> if you have an allergy, please ask our team before ordering.',
+      order:'Made to order', price:'Price', priceVal:'Depends on size', flavor:'Flavor', flavorVal:'Your choice',
+      groups:{order:{e:'Coming soon',h:'Made to order',p:'We bake these flavors especially for you. Order them with our team in advance and we’ll have them ready for your date.'},
+              sheet:{e:'To share',h:'Party sheet cakes',p:'For big groups. Order in advance in 1/4, 1/2 or full sheet; the price depends on the size.'}},
+      orderNote:'<b>MADE TO ORDER:</b> we bake it especially for you. Order it with our team in advance.',
+      sheetNote:'<b>MADE TO ORDER · PRICE BY SIZE:</b> choose 1/4, 1/2 or a full sheet. Ask our team for the price of each size.',
       season:'Seasonal', seasonNote:'<b>SEASONAL:</b> we only make it at certain times of the year. Ask our team if it’s available.',
       cat:'Cupcake'}
 };
@@ -283,8 +306,8 @@ const EXTRA=[
  X('cakes','P17','chocolate_dubai','Chocolate Dubai',['chocolate'],S('6" · 8"','6" · 8"'),{tl:'Chocolate · Dubái',d:'Chocolate con el sabor del famoso chocolate de Dubái.'},{tl:'Chocolate · Dubai',d:'Chocolate with the flavor of the famous Dubai chocolate.'}),
  X('cakes','P18','drip_cake','Drip Cake',['kids'],S('Listo para llevar','Ready to go'),{tl:'Decoración drip',d:'Pastel listo para llevar con decoración de chorreado.'},{tl:'Drip decoration',d:'A ready-to-go cake with a drip finish.'}),
  X('cakes','P19','gender_reveal_cake','Gender Reveal',['kids'],S('6"','6"'),{tl:'Vainilla · Sorpresa',d:'Por fuera, vainilla. Por dentro, el color que revela si es niño o niña.'},{tl:'Vanilla · Surprise',d:'Vanilla on the outside. Inside, the color that reveals boy or girl.'}),
- X('cakes','P20','sheet_cake','Sheet Cake',[],S('1/4 · 1/2 · Sheet completa','1/4 · 1/2 · Full sheet'),{tl:'Para grupos grandes',d:'Pastel rectangular para fiestas. También en Italian, Red Velvet y Carrot.'},{tl:'For big groups',d:'A rectangular party cake. Also in Italian, Red Velvet and Carrot.'}),
- X('cakes','P21','tres_leches_sheet','Tres Leches',['creamy'],S('1/4 sheet','1/4 sheet'),{tl:'Tres leches',d:'Bizcocho húmedo bañado en tres leches.'},{tl:'Three milks',d:'Moist sponge soaked in three milks.'}),
+ X('cakes','P20','sheet_cake','Sheet Cake',[],S('1/4 · 1/2 · Plancha completa','1/4 · 1/2 · Full sheet'),{tl:'Para grupos grandes',d:'Pastel rectangular para fiestas. Usted elige el sabor de adentro, por ejemplo Italian, Red Velvet o Carrot.'},{tl:'For big groups',d:'A rectangular party cake. You choose the flavor inside, for example Italian, Red Velvet or Carrot.'},{pickFlavor:true}),
+ X('cakes','P21','tres_leches_sheet','Tres Leches',['creamy'],S('1/4 · 1/2 · Plancha completa','1/4 · 1/2 · Full sheet'),{tl:'Tres leches',d:'Bizcocho húmedo bañado en tres leches.'},{tl:'Three milks',d:'Moist sponge soaked in three milks.'}),
  X('cakes','P22','turtle_cheesecake','Turtle Cheesecake',['caramel','creamy'],S('Entero','Whole'),{tl:'Cheesecake',d:'Cheesecake entero estilo turtle.'},{tl:'Cheesecake',d:'A whole turtle-style cheesecake.'}),
  X('cakes','P23','oreo_cheesecake','Oreo Cheesecake',['chocolate','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Oreo',d:'Cheesecake entero con galleta Oreo.'},{tl:'Cheesecake · Oreo',d:'A whole cheesecake with Oreo cookies.'}),
  X('cakes','P24','biscoff_cheesecake','Biscoff Cheesecake',['caramel','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Biscoff',d:'Cheesecake entero con galleta caramelizada Biscoff.'},{tl:'Cheesecake · Biscoff',d:'A whole cheesecake with caramelized Biscoff cookies.'}),
@@ -327,6 +350,8 @@ P.push(...EXTRA);
 }
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
 const SEASONAL={choc_strawberries:1};
+const GROUP={coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
+P.forEach(p => { if (GROUP[p.id]) p.group = GROUP[p.id]; });
 const PHOTOS={choc_strawberries:1,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
@@ -362,15 +387,25 @@ function renderGrid(){
     $('content').innerHTML = `<div class="soonbox"><div class="dots"><i></i><i></i><i></i></div><h2>${T[lang].soonTitle}</h2><p>${T[lang].soonText[cat]}</p></div>`;
     return;
   }
-  $('content').innerHTML = `<div class="grid">` + list.map((p,i) => `
+  if (cat === 'cakes') list = [...list.filter(p => !p.group), ...list.filter(p => p.group==='order'), ...list.filter(p => p.group==='sheet')];
+  const card = (p,i) => `
     <button class="card" data-i="${i}" id="card-${p.id}">
-      <div class="ph">${p.seasonal ? `<span class="season">${T[lang].season}</span>` : ''}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp" alt="${p.name}" loading="lazy">`}</div>
+      <div class="ph">${badge(p)}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp" alt="${p.name}" loading="lazy">`}</div>
       <h3>${p.name}</h3>
       <div class="tl">${p[lang].tl}</div>
-    </button>`).join('') + `</div>`;
+    </button>`;
+  const idx = list.map((p,i) => [p,i]);
+  let html = `<div class="grid">` + idx.filter(([p]) => !p.group).map(([p,i]) => card(p,i)).join('') + `</div>`;
+  for (const g of ['order','sheet']){
+    const part = idx.filter(([p]) => p.group === g); if (!part.length) continue;
+    const G = T[lang].groups[g];
+    html += `<section class="group"><header><span class="eb">${G.e}</span><h2>${G.h}</h2><p>${G.p}</p></header><div class="grid">` + part.map(([p,i]) => card(p,i)).join('') + `</div></section>`;
+  }
+  $('content').innerHTML = html.replace('<div class="grid"></div>','');
 }
+function badge(p){ const t=T[lang]; return p.seasonal ? `<span class="season">${t.season}</span>` : p.group ? `<span class="season">${t.order}</span>` : ''; }
 const CAM = '<svg viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 9l3-5h10l3 5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="23" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>';
-function pend(p){ return `<div class="pend">${CAM}<span>${T[lang].pending}</span><code>${p.code}</code></div>`; }
+function pend(p){ const t=T[lang]; return `<div class="pend" title="${p.code}"><div class="cam"><svg class="steam" viewBox="0 0 40 16" aria-hidden="true"><path d="M10 15c-3-3 3-5 0-8s3-5 0-6"/><path d="M20 15c-3-3 3-5 0-8s3-5 0-6"/><path d="M30 15c-3-3 3-5 0-8s3-5 0-6"/></svg>${CAM}</div><div class="pt">${t.pending}</div><div class="ps">${t.pendSub}</div><div class="pn">${t.pendNote}</div></div>`; }
 function renderAll(){
   document.documentElement.lang = lang;
   $('lang-es').setAttribute('aria-pressed', lang==='es'); $('lang-en').setAttribute('aria-pressed', lang==='en');
@@ -390,9 +425,12 @@ function openP(i, keepView){
   $('v-out').setAttribute('aria-pressed', view==='out'); $('v-in').setAttribute('aria-pressed', view==='in');
   $('p-cat').textContent = t.catLabel[p.cat]; $('p-name').textContent = p.name; $('p-tl').textContent = L.tl; $('p-desc').textContent = L.d;
   const rows = ['base','fill','top','deco'].filter(k => L[k]).map(k => [t.rows[k], L[k]]);
+  if (p.pickFlavor) rows.push([t.flavor, t.flavorVal]);
   if (p.sz) rows.push([t.rows.sz, p.sz[lang]]);
+  if (p.group === 'sheet') rows.push([t.price, t.priceVal]);
   $('p-rows').innerHTML = rows.map(([a,b]) => `<div class="row"><dt>${a}</dt><dd>${b}</dd></div>`).join('');
-  $('p-season').hidden = !p.seasonal; $('p-season').textContent = t.season; $('p-seasonnote').hidden = !p.seasonal; $('p-seasonnote').innerHTML = p.seasonal ? t.seasonNote : '';
+  const note = p.seasonal ? t.seasonNote : p.group==='order' ? t.orderNote : p.group==='sheet' ? t.sheetNote : '';
+  $('p-season').hidden = !(p.seasonal || p.group); $('p-season').textContent = p.seasonal ? t.season : t.order; $('p-seasonnote').hidden = !note; $('p-seasonnote').innerHTML = note;
   $('p-allergy').hidden = false; $('p-allergy').innerHTML = p.nuts ? t.allergy : t.allergyAll;
   $('prev').textContent = t.prev; $('next').textContent = t.next;
   $('sheet').hidden = false; document.body.style.overflow = 'hidden';
