@@ -365,6 +365,7 @@ const PHOTOS={choc_strawberries:1,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
+const BUILD = '202611091711';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
@@ -398,7 +399,7 @@ function renderGrid(){
   if (cat === 'cakes') list = [...list.filter(p => !p.group), ...list.filter(p => p.group==='order'), ...list.filter(p => p.group==='sheet')];
   const card = (p,i) => `
     <button class="card" data-i="${i}" id="card-${p.id}">
-      <div class="ph">${badge(p)}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp" alt="${p.name}" loading="lazy">`}</div>
+      <div class="ph">${badge(p)}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp?v=${BUILD}" alt="${p.name}" loading="lazy">`}</div>
       <h3>${p.name}</h3>
       <div class="tl">${p[lang].tl}</div>
     </button>`;
@@ -428,7 +429,7 @@ function openP(i, keepView){
   $('p-img').hidden = !has; $('pend-box').hidden = has; $('pend-box').innerHTML = has ? '' : pend(p);
   document.querySelector('.view').hidden = !has || p.views === 1;
   const lo = p.cat === 'slices' ? t.in : p.views === 2 ? t.side : t.out, li = p.views === 2 ? t.top : t.in;
-  if (has){ $('p-img').src = `img/${p.id}-${view}.webp`; $('p-img').alt = `${p.name} — ${view==='out'?lo:li}`; }
+  if (has){ $('p-img').src = `img/${p.id}-${view}.webp?v=${BUILD}`; $('p-img').alt = `${p.name} — ${view==='out'?lo:li}`; }
   $('v-out').textContent = lo; $('v-in').textContent = li;
   $('v-out').setAttribute('aria-pressed', view==='out'); $('v-in').setAttribute('aria-pressed', view==='in');
   $('p-cat').textContent = t.catLabel[p.cat]; $('p-name').textContent = p.name; $('p-tl').textContent = L.tl; $('p-desc').textContent = L.d;
@@ -471,6 +472,26 @@ $('sheet').addEventListener('touchend', e => {
   if (Math.abs(dx) > 60) openP(current + (dx < 0 ? 1 : -1));
 });
 renderAll();
+// Actualización automática: revisa si hay una versión nueva y recarga cuando no hay ninguna ficha abierta
+(function(){
+  let pending = false;
+  async function check(){
+    try {
+      const r = await fetch('version.json?t=' + Date.now(), {cache:'no-store'});
+      if (!r.ok) return;
+      const v = (await r.json()).v;
+      if (v && v !== BUILD) pending = v;
+    } catch(e) {}
+    reloadIfIdle();
+  }
+  function reloadIfIdle(){
+    if (pending && $('sheet').hidden) location.replace(location.pathname + '?v=' + pending + location.hash);
+  }
+  setInterval(check, 120000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+  $('close').addEventListener('click', () => setTimeout(reloadIfIdle, 300));
+  setTimeout(check, 3000);
+})();
 </script>
 
 </body></html>
