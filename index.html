@@ -78,7 +78,14 @@ main{padding-block:22px 40px}
 .sheet{position:fixed;inset:0;z-index:40;background:rgba(58,35,38,.42);display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
 .panel{background:var(--paper);border-radius:24px;width:min(1080px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1.05fr 1fr;position:relative}
 .stage{background:var(--ivory);display:grid;grid-template-rows:1fr auto;gap:14px;padding:26px;min-height:420px;border-radius:24px 0 0 24px}
-.stage .imgbox{display:grid;place-items:center;min-height:0}
+.stage .imgbox{display:grid;place-items:center;min-height:0;position:relative}
+.card .ph{position:relative}
+.season{position:absolute;top:10px;left:10px;z-index:1;font-family:var(--serif);font-style:italic;font-size:15px;line-height:1;letter-spacing:.01em;color:var(--wine);
+  background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:999px;padding:6px 12px 7px;pointer-events:none}
+.season::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--rose);margin-right:7px;vertical-align:middle;transform:translateY(-1px)}
+.stage .season{top:0;left:0;font-size:18px;padding:8px 15px 9px}
+.seasonnote{background:var(--ivory);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45}
+.seasonnote b{color:var(--wine);letter-spacing:.04em}
 .stage img{mix-blend-mode:multiply;max-width:100%;max-height:min(56vh,520px);object-fit:contain;transition:opacity .2s}
 .view{justify-self:center;display:flex;background:var(--paper);border-radius:999px;padding:4px;gap:4px;border:1px solid var(--line)}
 .view button{border:0;background:transparent;border-radius:999px;padding:9px 18px;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -141,7 +148,7 @@ main{padding-block:22px 40px}
   <article class="panel" role="dialog" aria-modal="true" aria-labelledby="p-name">
     <button class="close" id="close" type="button" aria-label="Close">×</button>
     <div class="stage">
-      <div class="imgbox"><img id="p-img" alt=""><div id="pend-box" style="width:100%" hidden></div></div>
+      <div class="imgbox"><span class="season" id="p-season" hidden></span><img id="p-img" alt=""><div id="pend-box" style="width:100%" hidden></div></div>
       <div class="view" role="group">
         <button id="v-out" type="button" aria-pressed="true"></button>
         <button id="v-in" type="button" aria-pressed="false"></button>
@@ -153,6 +160,7 @@ main{padding-block:22px 40px}
       <div class="tl" id="p-tl"></div>
       <p class="desc" id="p-desc"></p>
       <dl class="inside" id="p-rows"></dl>
+      <div class="seasonnote" id="p-seasonnote" hidden></div>
       <div class="allergy" id="p-allergy" hidden></div>
       <div class="nav">
         <button id="prev" type="button"></button>
@@ -175,6 +183,7 @@ const T = {
       rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto próximamente', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
       allergy:'<b>ALERGIAS:</b> contiene nuez y avellana. Si tiene alguna alergia, pregunte a nuestro equipo.',
       allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
+      season:'Por temporada', seasonNote:'<b>POR TEMPORADA:</b> lo preparamos solo en ciertas épocas del año. Pregunte a nuestro equipo si está disponible.',
       cat:'Cupcake'},
   en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',slices:'By the slice',pastries:'Our pastries',custom:'Custom cakes'},
       sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',slices:'Tap a slice to see it inside and from above.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
@@ -187,6 +196,7 @@ const T = {
       rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo coming soon', catLabel:{cupcakes:'Cupcake',cakes:'Cake',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
       allergy:'<b>ALLERGIES:</b> contains nuts and hazelnut. If you have an allergy, please ask our team.',
       allergyAll:'<b>ALLERGIES:</b> if you have an allergy, please ask our team before ordering.',
+      season:'Seasonal', seasonNote:'<b>SEASONAL:</b> we only make it at certain times of the year. Ask our team if it’s available.',
       cat:'Cupcake'}
 };
 const CATS = ['cupcakes','cakes','slices','pastries','custom'];
@@ -282,16 +292,13 @@ const EXTRA=[
  X('pastries','T02','cannoli','Cannoli',['creamy'],S('Chico · Grande','Small · Large'),{tl:'Clásico italiano',d:'Masa crujiente rellena de crema dulce.'},{tl:'Italian classic',d:'Crispy shell filled with sweet cream.'}),
  X('pastries','T03','choc_strawberries','Chocolate Covered Strawberries',['chocolate','fruit'],S('Pieza · 1/2 docena · 1 docena','Single · Half dozen · Dozen'),{tl:'Fresa · Chocolate',d:'Fresas frescas bañadas en chocolate. Ideales para regalar.'},{tl:'Strawberry · Chocolate',d:'Fresh strawberries dipped in chocolate. Perfect as a gift.'}),
  X('pastries','T04','eclair','Éclair',['chocolate','creamy'],S('Individual','Single'),{tl:'Clásico francés',d:'Pasta choux rellena de crema, cubierta de chocolate.'},{tl:'French classic',d:'Choux pastry filled with cream, topped with chocolate.'}),
- X('pastries','T05','dubai_eclair','Dubai Éclair',['chocolate'],S('Individual','Single'),{tl:'Éclair · Dubái',d:'Nuestro éclair con el sabor del chocolate de Dubái.'},{tl:'Éclair · Dubai',d:'Our éclair with the flavor of Dubai chocolate.'}),
  X('pastries','T06','cream_puff','Cream Puff',['creamy'],S('Individual','Single'),{tl:'Pasta choux · Crema',d:'Bolita de pasta choux rellena de crema.'},{tl:'Choux · Cream',d:'A choux puff filled with cream.'}),
  X('pastries','T07','tiramisu','Tiramisú',['creamy'],S('Individual','Single'),{tl:'Café · Mascarpone',d:'El postre italiano de café y crema.'},{tl:'Coffee · Mascarpone',d:'The Italian coffee-and-cream dessert.'}),
  X('pastries','T08','lemon_bar','Lemon Bar',['fruit'],S('Individual','Single'),{tl:'Limón',d:'Base de galleta con crema de limón.'},{tl:'Lemon',d:'Shortbread base with lemon filling.'}),
  X('pastries','T09','tres_leches_personal','Tres Leches Personal',['creamy'],S('Individual','Single'),{tl:'Tres leches',d:'Bizcocho bañado en tres leches, en porción individual.'},{tl:'Three milks',d:'Sponge soaked in three milks, single serving.'}),
  X('pastries','T10','cake_pops','Cake Pops',['kids'],S('Por pieza','Each'),{tl:'Pastel en paleta',d:'Bolitas de pastel cubiertas, en palito.'},{tl:'Cake on a stick',d:'Coated cake bites on a stick.'}),
  X('pastries','T11','fruit_tart','Fruit Tart',['fruit'],S('Individual','Single'),{tl:'Fruta fresca',d:'Tarta con crema y fruta fresca.'},{tl:'Fresh fruit',d:'A tart with cream and fresh fruit.'}),
- X('pastries','T12','key_lime_tart','Key Lime Tart',['fruit'],S('Individual','Single'),{tl:'Limón · Tarta',d:'Tarta de key lime, fresca y cremosa.'},{tl:'Key lime · Tart',d:'A fresh, creamy key lime tart.'}),
  X('pastries','T13','choc_raspberry_tart','Chocolate Raspberry Tart',['chocolate','fruit'],S('Individual','Single'),{tl:'Chocolate · Frambuesa',d:'Tarta de chocolate con frambuesa.'},{tl:'Chocolate · Raspberry',d:'A chocolate tart with raspberry.'}),
- X('pastries','T14','pistachio_raspberry_tart','Pistachio Raspberry Tart',['fruit'],S('Individual','Single'),{tl:'Pistache · Frambuesa',d:'Tarta de pistache con frambuesa.'},{tl:'Pistachio · Raspberry',d:'A pistachio tart with raspberry.'},{nuts:true}),
  X('pastries','T15','blueberry_tart','Blueberry Tart',['fruit'],S('Individual','Single'),{tl:'Blueberry',d:'Tarta con blueberries.'},{tl:'Blueberry',d:'A blueberry tart.'}),
  X('pastries','T16','raspberry_fruit','Raspberry Fruit',['fruit'],S('Individual','Single'),{tl:'Frambuesa',d:'Postre de frambuesa.'},{tl:'Raspberry',d:'A raspberry dessert.'}),
  X('pastries','T17','lemoncello','Lemoncello',['fruit'],S('Individual','Single'),{tl:'Limón',d:'Postre con sabor a limoncello.'},{tl:'Lemon',d:'A limoncello-flavored dessert.'}),
@@ -316,9 +323,10 @@ P.push(...EXTRA);
       es:strip(base.es),en:strip(base.en)}); });
 }
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
-const PHOTOS={red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,italian_cream:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
+const SEASONAL={choc_strawberries:1};
+const PHOTOS={choc_strawberries:1,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,italian_cream:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
-P.forEach(p => { if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
+P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
@@ -353,7 +361,7 @@ function renderGrid(){
   }
   $('content').innerHTML = `<div class="grid">` + list.map((p,i) => `
     <button class="card" data-i="${i}" id="card-${p.id}">
-      <div class="ph">${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp" alt="${p.name}" loading="lazy">`}</div>
+      <div class="ph">${p.seasonal ? `<span class="season">${T[lang].season}</span>` : ''}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp" alt="${p.name}" loading="lazy">`}</div>
       <h3>${p.name}</h3>
       <div class="tl">${p[lang].tl}</div>
     </button>`).join('') + `</div>`;
@@ -381,6 +389,7 @@ function openP(i, keepView){
   const rows = ['base','fill','top','deco'].filter(k => L[k]).map(k => [t.rows[k], L[k]]);
   if (p.sz) rows.push([t.rows.sz, p.sz[lang]]);
   $('p-rows').innerHTML = rows.map(([a,b]) => `<div class="row"><dt>${a}</dt><dd>${b}</dd></div>`).join('');
+  $('p-season').hidden = !p.seasonal; $('p-season').textContent = t.season; $('p-seasonnote').hidden = !p.seasonal; $('p-seasonnote').innerHTML = p.seasonal ? t.seasonNote : '';
   $('p-allergy').hidden = false; $('p-allergy').innerHTML = p.nuts ? t.allergy : t.allergyAll;
   $('prev').textContent = t.prev; $('next').textContent = t.next;
   $('sheet').hidden = false; document.body.style.overflow = 'hidden';
