@@ -346,10 +346,7 @@ P.push(...EXTRA);
 // ---- Slices (sesión nov-2026). Nombres en blanco: se llenan en la sucursal. img/{id}-out = de lado, img/{id}-in = desde arriba
 { // [código, nombre, pastel entero del que sale la info (o null), tiene foto, contiene nuez]
   const strip=o=>{const r={}; for(const k in o) r[k]=typeof o[k]==='string'?o[k].replace(/\s*\(\d+ (capas|layers)\)/g,''):o[k]; return r;};
-  const SL=[['S01','Turtle Cheesecake','turtle_cheesecake',1,1],['S02','Strawberry Shortcake','strawberry_shortcake',1,0],['S03','BTS','bts',1,1],
-    ['S04','Red Velvet','red_velvet_cake',1,0],['S05','Vanilla Buttercream','vanilla_buttercream',1,0],['S06','Carrot Cake','carrot_cake',1,1],
-    ['S07','Strawberry Lovers','strawberry_lovers_cake',1,0],['S08','Oreo Cheesecake','oreo_cheesecake',1,0],['S09','Chocolate Buttercake',null,1,0],
-    ['S11','NY Style Cheesecake','ny_cheesecake',1,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',1,0],['S13','Chocolate Ganache','chocolate_ganache',1,0],['S14','Chocolate Oreo Mousse','oreo_mousse',1,0]];
+  const SL=[['S02','Strawberry Shortcake','strawberry_shortcake',1,0],['S03','BTS','bts',1,1],['S04','Red Velvet','red_velvet_cake',1,0],['S05','Vanilla Buttercream','vanilla_buttercream',1,0],['S06','Carrot Cake','carrot_cake',1,1],['S07','Strawberry Lovers','strawberry_lovers_cake',1,0],['S09','Chocolate Buttercake',null,1,0],['S13','Chocolate Ganache','chocolate_ganache',1,0],['S14','Chocolate Oreo Mousse','oreo_mousse',1,0],['S01','Turtle Cheesecake','turtle_cheesecake',1,1],['S08','Oreo Cheesecake','oreo_cheesecake',1,0],['S11','NY Style Cheesecake','ny_cheesecake',1,0],['S12','Biscoff Cheesecake','biscoff_cheesecake',1,0]];
   const blank={es:{tl:'',d:''},en:{tl:'',d:''}};
   SL.forEach(([c,name,src,ph,nuts])=>{ const base=src&&P.find(x=>x.id===src)||blank;
     P.push({cat:'slices',code:c,id:'slice_'+c.toLowerCase(),name,tags:base.tags||[],photo:!!ph,views:2,nuts:!!nuts||!!base.nuts,
@@ -365,7 +362,7 @@ const PHOTOS={choc_strawberries:1,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611091912';
+const BUILD = '202611091918';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
