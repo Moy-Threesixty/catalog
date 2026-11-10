@@ -337,6 +337,7 @@ const EXTRA=[
  X('pastries','T18','banana_pudding','Banana Pudding',['creamy','kids'],S('Porción','Serving'),{tl:'Banana · Vanilla',d:'Pudín de vanilla con banana y galleta.'},{tl:'Banana · Vanilla',d:'Vanilla pudding with banana and cookies.'}),
  X('pastries','T19','pistachio_raspberry_mousse','Pistachio Raspberry Mousse',['fruit','creamy'],S('Individual','Single'),{tl:'Pistache · Frambuesa',d:'Mousse de pistache con frambuesa.'},{tl:'Pistachio · Raspberry',d:'Pistachio mousse with raspberry.'},{nuts:true}),
  X('pastries','T20','apple_butter_pecan','Apple Butter Pecan',['caramel','fruit'],S('Individual','Single'),{tl:'Manzana · Pecana',d:'Tartaleta con domo de mousse de apple butter, pecanas caramelizadas y decoración de chocolate.'},{tl:'Apple · Pecan',d:'A tart with an apple butter mousse dome, caramelized pecans and a chocolate garnish.'},{nuts:true}),
+ X('pastries','T21','black_forest_pastry','Black Forest',['chocolate','fruit'],S('Individual','Single'),{tl:'Chocolate · Cereza',d:'Capas de bizcocho y mousse de chocolate con relleno de cereza y crema, cubierto con glaseado de chocolate.'},{tl:'Chocolate · Cherry',d:'Layers of chocolate sponge and mousse with cherry filling and cream, finished with a chocolate glaze.'}),
 
  X('custom','C01','bento_cake','Bento Cake',['kids'],S('Mini, en caja','Mini, boxed'),{tl:'Mini pastel personalizado',d:'Mini pastel en su cajita, decorado a su gusto. Ideal para regalar.'},{tl:'Personalized mini cake',d:'A mini cake in its own box, decorated your way. Great as a gift.'}),
  X('custom','C02','bento_cheesecake','Bento Cheesecake',['creamy'],S('Mini, en caja','Mini, boxed'),{tl:'Mini cheesecake personalizado',d:'Mini cheesecake en su cajita, decorado a su gusto.'},{tl:'Personalized mini cheesecake',d:'A mini cheesecake in its own box, decorated your way.'}),
@@ -358,12 +359,12 @@ const SEASONAL={choc_strawberries:1};
 const GROUP={coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
 P.forEach(p => { if (GROUP[p.id]) p.group = GROUP[p.id]; });
 P.forEach(p => { if (p.id==='turtle_cheesecake') p.nuts = true; });
-const PHOTOS={choc_strawberries:1,apple_butter_pecan:2,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:2,gender_reveal_cake:1,oreo_cheesecake:2,biscoff_cheesecake:2,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
+const PHOTOS={choc_strawberries:1,black_forest_pastry:1,apple_butter_pecan:2,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:2,gender_reveal_cake:1,oreo_cheesecake:2,biscoff_cheesecake:2,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611091933';
+const BUILD = '202611091936';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
