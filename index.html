@@ -369,12 +369,12 @@ const SEASONAL={choc_strawberries:1};
 const GROUP={rect_r01:'rect',rect_r02:'rect',rect_r03:'rect',rect_r04:'rect',rect_r05:'rect',coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
 P.forEach(p => { if (GROUP[p.id]) p.group = GROUP[p.id]; });
 P.forEach(p => { if (p.id==='turtle_cheesecake') p.nuts = true; });
-const PHOTOS={choc_strawberries:1,rect_r01:1,rect_r02:1,rect_r03:1,rect_r04:1,rect_r05:1,raspberry_cream_puff:2,strawberry_cream_puff:2,tres_leches_personal:2,blueberry_tart:2,fruit_tart:2,black_forest_pastry:1,apple_butter_pecan:2,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:2,gender_reveal_cake:1,oreo_cheesecake:2,biscoff_cheesecake:2,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
+const PHOTOS={choc_strawberries:1,rect_r01:2,rect_r02:2,rect_r03:2,rect_r04:2,rect_r05:2,raspberry_cream_puff:2,strawberry_cream_puff:2,tres_leches_personal:2,blueberry_tart:2,fruit_tart:2,black_forest_pastry:1,apple_butter_pecan:2,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:2,gender_reveal_cake:1,oreo_cheesecake:2,biscoff_cheesecake:2,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611102247';
+const BUILD = '202611102330';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
