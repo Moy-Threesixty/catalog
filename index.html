@@ -138,6 +138,9 @@ main{padding-block:22px 40px}
   .logo{height:38px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.pend .steam path{animation:none}}
+.card .pr{font-size:15px;font-weight:700;color:var(--ink);margin-top:2px}
+.season-box{background:var(--paper);border-radius:18px;padding:28px 20px;text-align:center;border:1.5px dashed var(--line);color:var(--muted);line-height:1.5;margin-top:14px}
+.group .dl{display:inline-block;justify-self:start;margin-top:6px;background:var(--blush);color:var(--wine);font-weight:700;font-size:13px;border-radius:999px;padding:6px 12px}
 </style>
 
 <header class="top">
@@ -194,46 +197,60 @@ main{padding-block:22px 40px}
 
 <script>
 const T = {
-  es:{h1:{cupcakes:'Nuestros cupcakes',cakes:'Nuestros pasteles',slices:'Por rebanada',pastries:'Nuestros pastries',custom:'Custom cakes'},
-      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',slices:'Toca una rebanada para verla por dentro y desde arriba.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.'},
-      tabs:{cupcakes:'Cupcakes',cakes:'Pasteles',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes'},
-      soon:'Pronto', all:'Todos',
+  es:{h1:{cupcakes:'Nuestros cupcakes',cakes:'Nuestros pasteles',slices:'Por rebanada',pastries:'Nuestros pastries',custom:'Custom cakes',brunch:'Lunch / Brunch',specials:'Especiales de temporada'},
+      sub:{cupcakes:'Toca un cupcake para ver qué lleva por dentro.',cakes:'Toca un pastel para ver qué lleva y en qué tamaños viene.',slices:'Toca una rebanada para verla por dentro y desde arriba.',pastries:'Toca un postre para ver de qué se trata.',custom:'Pasteles por pedido especial. Pregunte a nuestro equipo y le tomamos el pedido.',brunch:'Brunch todos los días hasta las 3 PM. Toque un platillo para ver qué lleva.',specials:'Lo especial de cada temporada: Thanksgiving, Navidad, verano y más.'},
+      tabs:{cupcakes:'Cupcakes',cakes:'Pasteles',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes',brunch:'Lunch/Brunch',specials:'Specials'},
+      soon:'Pronto', isNew:'Nuevo', all:'Todos',
       tags:{chocolate:'Chocolate',fruit:'Frutales',creamy:'Cremosos',caramel:'Caramelo',kids:'Para niños'},
       soonTitle:'Muy pronto', soonText:{cakes:'Estamos preparando las fotos de nuestros pasteles. Pregunte a nuestro equipo por sabores y tamaños.',
         pastries:'Nuestra selección de pastries llegará muy pronto a este catálogo.',custom:'Pastel personalizado para su evento: pregunte a nuestro equipo y le tomamos el pedido.'},
       out:'Por fuera', in:'Por dentro', side:'De lado', top:'Desde arriba', prev:'‹ Anterior', next:'Siguiente ›',
-      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños'}, pending:'Foto en el horno…', pendSub:'Muy pronto', pendNote:'Ya lo estamos horneando. La foto llega muy pronto.', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
+      rows:{base:'Pan',fill:'Relleno',top:'Cubierta',deco:'Decoración',sz:'Tamaños',ing:'Lleva',side:'Acompañante',extra:'Extras',pr:'Precio'}, pending:'Foto en el horno…', pendSub:'Muy pronto', pendNote:'Ya lo estamos horneando. La foto llega muy pronto.', catLabel:{cupcakes:'Cupcake',cakes:'Pastel',slices:'Slice',pastries:'Pastry',custom:'Custom cake',brunch:'Lunch / Brunch',specials:'Especial de temporada'},
       allergy:'<b>ALERGIAS:</b> contiene nuez y avellana. Si tiene alguna alergia, pregunte a nuestro equipo.',
       allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
       order:'Por pedido', price:'Precio', priceVal:'Según el tamaño', flavor:'Sabor', flavorVal:'A su elección',
       groups:{order:{e:'Ya vienen',h:'Hechos por pedido',p:'Estos sabores los horneamos especialmente para usted. Pídalos con nuestro equipo con anticipación y se los tenemos listos para su fecha.'},
               rect:{e:'Nuevos',h:'Pasteles rectangulares',p:'Nuestros pasteles en formato rectangular. Pregunte a nuestro equipo por los sabores.'},
-              sheet:{e:'Para compartir',h:'Planchas para fiestas',p:'Para grupos grandes. Se ordenan con anticipación en 1/4, 1/2 o plancha completa, y el precio depende del tamaño.'}},
+              sheet:{e:'Para compartir',h:'Planchas para fiestas',p:'Para grupos grandes. Se ordenan con anticipación en 1/4, 1/2 o plancha completa, y el precio depende del tamaño.'},
+              bk:{e:'Hasta las 3 PM',h:'Breakfast',p:'Para empezar el día.'},
+              sw:{e:'Hasta las 3 PM',h:'Sandwiches',p:'Con ensalada o chips, a su elección.'},
+              chq:{e:'Hasta las 3 PM',h:'Chilaquiles',p:'Con salsa verde, roja o las dos.'}},
+      seasons:{thanksgiving:{e:'Thanksgiving',h:'Pies de Thanksgiving',p:'Haga su pedido de pies para Thanksgiving con nuestro equipo.',dl:'Pedidos hasta el 22 de noviembre',empty:'La lista de pies llega muy pronto. Mientras tanto, pregunte a nuestro equipo y le tomamos el pedido.'},
+               christmas:{e:'Navidad',h:'Especiales de Navidad',p:'Lo que preparamos para las fiestas.',empty:'Muy pronto anunciamos los especiales de Navidad.'},
+               summer:{e:'Verano',h:'Especiales de verano',p:'Lo fresco de la temporada.',empty:'Muy pronto.'}},
+      noSeason:'Muy pronto anunciamos el próximo especial de temporada.',
       orderNote:'<b>POR PEDIDO:</b> lo horneamos especialmente para usted. Pídalo con nuestro equipo con anticipación.',
       sheetNote:'<b>POR PEDIDO · PRECIO SEGÚN TAMAÑO:</b> elija 1/4, 1/2 o plancha completa. Pregunte a nuestro equipo el precio de cada tamaño.',
       season:'Por temporada', seasonNote:'<b>POR TEMPORADA:</b> lo preparamos solo en ciertas épocas del año. Pregunte a nuestro equipo si está disponible.',
       cat:'Cupcake'},
-  en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',slices:'By the slice',pastries:'Our pastries',custom:'Custom cakes'},
-      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',slices:'Tap a slice to see it inside and from above.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.'},
-      tabs:{cupcakes:'Cupcakes',cakes:'Cakes',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes'},
-      soon:'Soon', all:'All',
+  en:{h1:{cupcakes:'Our cupcakes',cakes:'Our cakes',slices:'By the slice',pastries:'Our pastries',custom:'Custom cakes',brunch:'Lunch / Brunch',specials:'Seasonal specials'},
+      sub:{cupcakes:'Tap a cupcake to see what’s inside.',cakes:'Tap a cake to see what’s inside and the sizes it comes in.',slices:'Tap a slice to see it inside and from above.',pastries:'Tap a pastry to learn more.',custom:'Made-to-order cakes. Ask our team and we’ll take your order.',brunch:'Brunch served daily until 3 PM. Tap a dish to see what’s in it.',specials:'What’s special each season: Thanksgiving, Christmas, summer and more.'},
+      tabs:{cupcakes:'Cupcakes',cakes:'Cakes',slices:'Slices',pastries:'Pastries',custom:'Custom Cakes',brunch:'Lunch/Brunch',specials:'Specials'},
+      soon:'Soon', isNew:'New', all:'All',
       tags:{chocolate:'Chocolate',fruit:'Fruity',creamy:'Creamy',caramel:'Caramel',kids:'Kids’ favorites'},
       soonTitle:'Coming soon', soonText:{cakes:'We’re photographing our cakes. Ask our team about flavors and sizes.',
         pastries:'Our pastry selection is coming to this catalog soon.',custom:'A custom cake for your event: ask our team and we’ll take your order.'},
       out:'Outside', in:'Inside', side:'Side', top:'From above', prev:'‹ Previous', next:'Next ›',
-      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes'}, pending:'Photo in the oven…', pendSub:'Coming soon', pendNote:'It’s in the oven. The photo is coming soon.', catLabel:{cupcakes:'Cupcake',cakes:'Cake',slices:'Slice',pastries:'Pastry',custom:'Custom cake'},
+      rows:{base:'Cake',fill:'Filling',top:'Frosting',deco:'Topping',sz:'Sizes',ing:'Made with',side:'Side',extra:'Add-ons',pr:'Price'}, pending:'Photo in the oven…', pendSub:'Coming soon', pendNote:'It’s in the oven. The photo is coming soon.', catLabel:{cupcakes:'Cupcake',cakes:'Cake',slices:'Slice',pastries:'Pastry',custom:'Custom cake',brunch:'Lunch / Brunch',specials:'Seasonal special'},
       allergy:'<b>ALLERGIES:</b> contains nuts and hazelnut. If you have an allergy, please ask our team.',
       allergyAll:'<b>ALLERGIES:</b> if you have an allergy, please ask our team before ordering.',
       order:'Made to order', price:'Price', priceVal:'Depends on size', flavor:'Flavor', flavorVal:'Your choice',
       groups:{order:{e:'Coming soon',h:'Made to order',p:'We bake these flavors especially for you. Order them with our team in advance and we’ll have them ready for your date.'},
               rect:{e:'New',h:'Rectangular cakes',p:'Our cakes in a rectangular shape. Ask our team about the flavors.'},
-              sheet:{e:'To share',h:'Party sheet cakes',p:'For big groups. Order in advance in 1/4, 1/2 or full sheet; the price depends on the size.'}},
+              sheet:{e:'To share',h:'Party sheet cakes',p:'For big groups. Order in advance in 1/4, 1/2 or full sheet; the price depends on the size.'},
+              bk:{e:'Until 3 PM',h:'Breakfast',p:'To start your day.'},
+              sw:{e:'Until 3 PM',h:'Sandwiches',p:'Served with salad or chips, your choice.'},
+              chq:{e:'Until 3 PM',h:'Chilaquiles',p:'With green or red sauce, or both.'}},
+      seasons:{thanksgiving:{e:'Thanksgiving',h:'Thanksgiving pies',p:'Order your Thanksgiving pies with our team.',dl:'Orders open until November 22',empty:'The pie list is coming soon. In the meantime, ask our team and we’ll take your order.'},
+               christmas:{e:'Christmas',h:'Christmas specials',p:'What we bake for the holidays.',empty:'Our Christmas specials are coming soon.'},
+               summer:{e:'Summer',h:'Summer specials',p:'Fresh for the season.',empty:'Coming soon.'}},
+      noSeason:'Our next seasonal special is coming soon.',
       orderNote:'<b>MADE TO ORDER:</b> we bake it especially for you. Order it with our team in advance.',
       sheetNote:'<b>MADE TO ORDER · PRICE BY SIZE:</b> choose 1/4, 1/2 or a full sheet. Ask our team for the price of each size.',
       season:'Seasonal', seasonNote:'<b>SEASONAL:</b> we only make it at certain times of the year. Ask our team if it’s available.',
       cat:'Cupcake'}
 };
-const CATS = ['cupcakes','cakes','slices','pastries','custom'];
+const CATS = ['cupcakes','cakes','slices','pastries','custom','brunch','specials'];
 const P = [
  {id:'black_forest',name:'Black Forest',tags:['chocolate','fruit'],
   es:{tl:'Chocolate · Cereza · Crema batida',d:'El clásico Selva Negra en cupcake: chocolate, cereza por dentro y crema batida ligera.',base:'Chocolate',fill:'Puré de cereza con crema batida',top:'Crema batida',deco:'Cereza bañada en chocolate y virutas de chocolate oscuro'},
@@ -365,6 +382,53 @@ P.push(...EXTRA);
       es:strip(base.es),en:strip(base.en)}); });
 }
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
+// ---- LUNCH / BRUNCH (menú nov-2026). Fotos pendientes: subir img/{id}-out.webp y agregar el id a PHOTOS con 1.
+// B(code,id,name,grupo,precio,es,en,extra)  grupo: bk=Breakfast, sw=Sandwiches, chq=Chilaquiles
+const B=(code,id,name,group,price,es,en,extra)=>({cat:'brunch',code,id,name,tags:[],photo:false,group,price,es,en,...(extra||{})});
+P.push(
+ B('B01','croissant_sandwich','Croissant Sandwich','bk','$13.44',
+  {tl:'Jamón · Tocino · Huevo',d:'Croissant con jamón, tocino, huevo y queso americano. Se sirve con parfait de berries.',ing:'Jamón, tocino, huevo y queso americano',side:'Parfait de berries'},
+  {tl:'Ham · Bacon · Egg',d:'Ham, bacon, egg and American cheese on a croissant. Served with a berry parfait.',ing:'Ham, bacon, egg and American cheese',side:'Berry parfait'}),
+ B('B02','french_toast','French Toast','bk','$13.44',
+  {tl:'Brioche · Berries · Maple',d:'French toast de pan brioche con berries y maple syrup. Incluye tocino.',ing:'Pan brioche, berries y maple syrup',side:'Tocino'},
+  {tl:'Brioche · Berries · Maple',d:'Brioche French toast served with berries and maple syrup. Side of bacon included.',ing:'Brioche, berries and maple syrup',side:'Bacon'}),
+ B('B03','yogurt_parfait','Yogurt Parfait','bk','$7.50',
+  {tl:'Yogurt · Berries · Granola',d:'Yogurt de vanilla con berries frescas y granola.',ing:'Yogurt de vanilla, berries frescas y granola'},
+  {tl:'Yogurt · Berries · Granola',d:'Vanilla yogurt with fresh berries and granola.',ing:'Vanilla yogurt, fresh berries and granola'}),
+ B('B04','smoked_salmon_toast','Smoked Salmon Toast','sw','$15.51',
+  {tl:'Sourdough · Salmón ahumado',d:'Pan sourdough con cream cheese, eneldo, alcaparras y salmón ahumado.',ing:'Sourdough, cream cheese, eneldo, alcaparras y salmón ahumado'},
+  {tl:'Sourdough · Smoked Salmon',d:'Sourdough topped with cream cheese, dill, capers and smoked salmon.',ing:'Sourdough, cream cheese, dill, capers and smoked salmon'}),
+ B('B05','avocado_toast','Avocado Toast','sw','$13.44',
+  {tl:'Sourdough · Aguacate · Feta',d:'Pan sourdough con aguacate, tomate, glaseado balsámico, queso feta y microgreens.',ing:'Sourdough, aguacate, tomate, glaseado balsámico, queso feta y microgreens',side:'Ensalada o chips'},
+  {tl:'Sourdough · Avocado · Feta',d:'Sourdough topped with avocado, tomatoes, balsamic glaze, feta cheese and microgreens.',ing:'Sourdough, avocado, tomatoes, balsamic glaze, feta and microgreens',side:'Salad or chips'}),
+ B('B06','turkey_blt','Turkey BLT','sw','$16.55',
+  {tl:'Pavo · Tocino · Aguacate',d:'Pan sourdough con chipotle aioli, pavo rostizado, tocino, lechuga romana, aguacate y queso pepper jack.',ing:'Sourdough, chipotle aioli, pavo rostizado, tocino, lechuga romana, aguacate y queso pepper jack',side:'Ensalada o chips'},
+  {tl:'Turkey · Bacon · Avocado',d:'Sourdough with chipotle aioli, roasted turkey, bacon, romaine, avocado and pepper jack cheese.',ing:'Sourdough, chipotle aioli, roasted turkey, bacon, romaine, avocado and pepper jack',side:'Salad or chips'}),
+ B('B07','caprese_sandwich','Caprese Sandwich','sw','$15.51',
+  {tl:'Mozzarella · Tomate · Pesto',d:'Pan ciabatta con mozzarella fresca, tomate, pesto, glaseado balsámico y arúgula.',ing:'Ciabatta, mozzarella fresca, tomate, pesto, glaseado balsámico y arúgula',side:'Chips o ensalada'},
+  {tl:'Mozzarella · Tomato · Pesto',d:'Ciabatta bread with fresh mozzarella, tomato, pesto, balsamic glaze and arugula.',ing:'Ciabatta, fresh mozzarella, tomato, pesto, balsamic glaze and arugula',side:'Chips or salad'}),
+ B('B08','chicken_salad_croissant','Chicken Salad Croissant','sw','$14.48',
+  {tl:'Pollo · Arándanos · Nuez',d:'Croissant de mantequilla con pollo rostizado, arándanos, nuez, lechuga romana y aderezo de la casa.',ing:'Croissant, pollo rostizado, arándanos, nuez (walnuts), lechuga romana y aderezo de la casa',side:'Ensalada o chips'},
+  {tl:'Chicken · Cranberries · Walnuts',d:'Buttery croissant with roasted chicken, cranberries, walnuts, romaine and house-made dressing.',ing:'Croissant, roasted chicken, cranberries, walnuts, romaine and house-made dressing',side:'Salad or chips'},{nuts:true}),
+ B('B09','tuna_salad_croissant','Tuna Salad Croissant','sw','$14.48',
+  {tl:'Atún · Apio · Cebolla',d:'Croissant de mantequilla con atún, cebolla, apio, mayonesa, lechuga romana y aderezo de la casa.',ing:'Croissant, atún, cebolla, apio, mayonesa, lechuga romana y aderezo de la casa',side:'Ensalada o chips'},
+  {tl:'Tuna · Celery · Onion',d:'Buttery croissant with onion, celery, tuna, mayo, romaine and house-made dressing.',ing:'Croissant, tuna, onion, celery, mayo, romaine and house-made dressing',side:'Salad or chips'}),
+ B('B10','chilaquiles','Chilaquiles','chq','$15.53',
+  {tl:'Salsa verde · Roja · O las dos',d:'Totopos de maíz fritos con queso fresco, cebolla morada y crema, con salsa verde, roja o las dos.',ing:'Totopos de maíz, queso fresco, cebolla morada y crema',extra:'Con huevo +$3.11 · Con pollo +$5.18'},
+  {tl:'Green · Red · Or both',d:'Fried corn tortillas with queso fresco, red onions and crema, topped with green or red sauce, or both.',ing:'Fried corn tortillas, queso fresco, red onions and crema',extra:'With eggs +$3.11 · With chicken +$5.18'})
+);
+
+// ---- SPECIALS por temporada. Para cambiar de temporada: poner las fechas en SEASONS y agregar los productos con E(...).
+// Una temporada se muestra desde 'from' hasta 'until' (incluidos). Fotos: img/{id}-out.webp + agregar el id a PHOTOS con 1.
+const SEASONS=[
+ {k:'thanksgiving',from:'2026-11-01',until:'2026-11-26'},
+ {k:'christmas',from:'2026-11-27',until:'2026-12-31'},
+];
+// E(code,id,name,temporada,precio,es,en,extra)
+const E=(code,id,name,season,price,es,en,extra)=>({cat:'specials',code,id,name,tags:[],photo:false,group:season,season,price,seasonal:true,es,en,...(extra||{})});
+P.push(
+ // Pies de Thanksgiving: pendiente la lista (nombre, tamaño, precio)
+);
 const SEASONAL={choc_strawberries:1};
 const GROUP={rect_r01:'rect',rect_r02:'rect',rect_r03:'rect',rect_r04:'rect',rect_r05:'rect',coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
 P.forEach(p => { if (GROUP[p.id]) p.group = GROUP[p.id]; });
@@ -374,7 +438,7 @@ const PHOTOS={choc_strawberries:1,rect_r01:2,rect_r02:2,rect_r03:2,rect_r04:2,re
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611110525';
+const BUILD = '202611111538';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
@@ -384,7 +448,7 @@ function save(){ try { localStorage.setItem('ytb-cat', JSON.stringify({lang})); 
 function renderTabs(){
   $('tabs').innerHTML = CATS.map(c => {
     const n = P.filter(p => p.cat === c).length;
-    const extra = n ? `<span class="count">${n}</span>` : `<span class="soon">${T[lang].soon}</span>`;
+    const extra = c==='specials' ? `<span class="count">${T[lang].isNew}</span>` : n ? `<span class="count">${n}</span>` : `<span class="soon">${T[lang].soon}</span>`;
     return `<button class="tab" role="tab" id="tab-${c}" aria-selected="${c===cat}" data-c="${c}">${T[lang].tabs[c]}${extra}</button>`;
   }).join('');
 }
@@ -392,7 +456,7 @@ function renderChips(){
   const items = P.filter(p => p.cat === cat);
   const used = [...new Set(items.flatMap(p => p.tags))];
   const order = ['chocolate','fruit','creamy','caramel','kids'].filter(t => used.includes(t));
-  $('chips').hidden = !items.length;
+  $('chips').hidden = !items.length || !order.length;
   $('chips').innerHTML = [`<button class="chip" id="chip-all" aria-pressed="${!tag}" data-t="">${T[lang].all}</button>`]
     .concat(order.map(t => `<button class="chip" id="chip-${t}" aria-pressed="${tag===t}" data-t="${t}">${T[lang].tags[t]}</button>`)).join('');
 }
@@ -401,6 +465,7 @@ function renderGrid(){
   const items = P.filter(p => p.cat === cat);
   $('sub').textContent = T[lang].sub[cat] || '';
   list = items.filter(p => !tag || p.tags.includes(tag));
+  if (cat === 'specials') return renderSpecials();
   if (!items.length){
     $('content').innerHTML = `<div class="soonbox"><div class="dots"><i></i><i></i><i></i></div><h2>${T[lang].soonTitle}</h2><p>${T[lang].soonText[cat]}</p></div>`;
     return;
@@ -410,18 +475,39 @@ function renderGrid(){
     <button class="card" data-i="${i}" id="card-${p.id}">
       <div class="ph">${badge(p)}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp?v=${BUILD}" alt="${p.name}" loading="lazy">`}</div>
       <h3>${p.name}</h3>
-      <div class="tl">${p[lang].tl}</div>
+      <div class="tl">${p[lang].tl}</div>${p.price ? `<div class="pr">${p.price}</div>` : ''}
     </button>`;
+  if (cat === 'brunch') list = ['bk','sw','chq'].flatMap(g => list.filter(p => p.group===g));
   const idx = list.map((p,i) => [p,i]);
   let html = `<div class="grid">` + idx.filter(([p]) => !p.group).map(([p,i]) => card(p,i)).join('') + `</div>`;
-  for (const g of ['rect','order','sheet']){
+  for (const g of (cat==='brunch' ? ['bk','sw','chq'] : ['rect','order','sheet'])){
     const part = idx.filter(([p]) => p.group === g); if (!part.length) continue;
     const G = T[lang].groups[g];
     html += `<section class="group"><header><span class="eb">${G.e}</span><h2>${G.h}</h2><p>${G.p}</p></header><div class="grid">` + part.map(([p,i]) => card(p,i)).join('') + `</div></section>`;
   }
   $('content').innerHTML = html.replace('<div class="grid"></div>','');
 }
-function badge(p){ const t=T[lang]; return p.seasonal ? `<span class="season low">${t.season}</span>` : p.group && p.group!=='rect' ? `<span class="season">${t.order}</span>` : ''; }
+function activeSeasons(){
+  const d = new Date(), today = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return SEASONS.filter(s => today >= s.from && today <= s.until);
+}
+function cardHTML(p,i){ return `
+    <button class="card" data-i="${i}" id="card-${p.id}">
+      <div class="ph">${badge(p)}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp?v=${BUILD}" alt="${p.name}" loading="lazy">`}</div>
+      <h3>${p.name}</h3>
+      <div class="tl">${p[lang].tl}</div>${p.price ? `<div class="pr">${p.price}</div>` : ''}
+    </button>`; }
+function renderSpecials(){
+  const t = T[lang], act = activeSeasons();
+  list = act.flatMap(s => P.filter(p => p.cat==='specials' && p.season===s.k));
+  if (!act.length){ $('content').innerHTML = `<div class="soonbox"><div class="dots"><i></i><i></i><i></i></div><h2>${t.soonTitle}</h2><p>${t.noSeason}</p></div>`; return; }
+  $('content').innerHTML = act.map(s => {
+    const G = t.seasons[s.k], items = list.map((p,i)=>[p,i]).filter(([p]) => p.season===s.k);
+    return `<section class="group"><header><span class="eb">${G.e}</span><h2>${G.h}</h2><p>${G.p}</p>${G.dl ? `<span class="dl">${G.dl}</span>` : ''}</header>` +
+      (items.length ? `<div class="grid">${items.map(([p,i]) => cardHTML(p,i)).join('')}</div>` : `<div class="season-box">${G.empty}</div>`) + `</section>`;
+  }).join('');
+}
+function badge(p){ const t=T[lang]; return p.seasonal ? `<span class="season low">${t.season}</span>` : (p.group==='order'||p.group==='sheet') ? `<span class="season">${t.order}</span>` : ''; }
 const CAM = '<svg viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 9l3-5h10l3 5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="23" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>';
 function pend(p){ const t=T[lang]; return `<div class="pend" title="${p.code}"><div class="cam"><svg class="steam" viewBox="0 0 40 16" aria-hidden="true"><path d="M10 15c-3-3 3-5 0-8s3-5 0-6"/><path d="M20 15c-3-3 3-5 0-8s3-5 0-6"/><path d="M30 15c-3-3 3-5 0-8s3-5 0-6"/></svg>${CAM}</div><div class="pt">${t.pending}</div><div class="ps">${t.pendSub}</div><div class="pn">${t.pendNote}</div></div>`; }
 function renderAll(){
@@ -446,9 +532,11 @@ function openP(i, keepView){
   if (p.pickFlavor) rows.push([t.flavor, t.flavorVal]);
   if (p.sz) rows.push([t.rows.sz, p.sz[lang]]);
   if (p.group === 'sheet') rows.push([t.price, t.priceVal]);
+  ['ing','side','extra'].filter(k => L[k]).forEach(k => rows.push([t.rows[k], L[k]]));
+  if (p.price) rows.push([t.rows.pr, p.price]);
   $('p-rows').innerHTML = rows.map(([a,b]) => `<div class="row"><dt>${a}</dt><dd>${b}</dd></div>`).join('');
-  const note = p.seasonal ? t.seasonNote : p.group==='order' ? t.orderNote : p.group==='sheet' ? t.sheetNote : '';
-  $('p-season').hidden = !(p.seasonal || (p.group && p.group!=='rect')); $('p-season').classList.toggle('low', !!p.seasonal); $('p-season').textContent = p.seasonal ? t.season : t.order; $('p-seasonnote').hidden = !note; $('p-seasonnote').innerHTML = note;
+  const note = p.cat==='specials' ? (t.seasons[p.season].dl ? `<b>${t.seasons[p.season].dl.toUpperCase()}</b>` : '') : p.seasonal ? t.seasonNote : p.group==='order' ? t.orderNote : p.group==='sheet' ? t.sheetNote : '';
+  $('p-season').hidden = !(p.seasonal || p.group==='order' || p.group==='sheet'); $('p-season').classList.toggle('low', !!p.seasonal); $('p-season').textContent = p.seasonal ? t.season : t.order; $('p-seasonnote').hidden = !note; $('p-seasonnote').innerHTML = note;
   $('p-allergy').hidden = false; $('p-allergy').innerHTML = p.nuts ? t.allergy : t.allergyAll;
   $('prev').textContent = t.prev; $('next').textContent = t.next;
   $('sheet').hidden = false; document.body.style.overflow = 'hidden';
