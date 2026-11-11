@@ -374,7 +374,7 @@ const PHOTOS={choc_strawberries:1,rect_r01:2,rect_r02:2,rect_r03:2,rect_r04:2,re
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611102330';
+const BUILD = '202611110520';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
