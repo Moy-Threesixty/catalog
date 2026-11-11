@@ -207,6 +207,7 @@ const T = {
       allergyAll:'<b>ALERGIAS:</b> si tiene alguna alergia, pregunte a nuestro equipo antes de ordenar.',
       order:'Por pedido', price:'Precio', priceVal:'Según el tamaño', flavor:'Sabor', flavorVal:'A su elección',
       groups:{order:{e:'Ya vienen',h:'Hechos por pedido',p:'Estos sabores los horneamos especialmente para usted. Pídalos con nuestro equipo con anticipación y se los tenemos listos para su fecha.'},
+              rect:{e:'Nuevos',h:'Pasteles rectangulares',p:'Nuestros pasteles en formato rectangular. Pregunte a nuestro equipo por los sabores.'},
               sheet:{e:'Para compartir',h:'Planchas para fiestas',p:'Para grupos grandes. Se ordenan con anticipación en 1/4, 1/2 o plancha completa, y el precio depende del tamaño.'}},
       orderNote:'<b>POR PEDIDO:</b> lo horneamos especialmente para usted. Pídalo con nuestro equipo con anticipación.',
       sheetNote:'<b>POR PEDIDO · PRECIO SEGÚN TAMAÑO:</b> elija 1/4, 1/2 o plancha completa. Pregunte a nuestro equipo el precio de cada tamaño.',
@@ -225,6 +226,7 @@ const T = {
       allergyAll:'<b>ALLERGIES:</b> if you have an allergy, please ask our team before ordering.',
       order:'Made to order', price:'Price', priceVal:'Depends on size', flavor:'Flavor', flavorVal:'Your choice',
       groups:{order:{e:'Coming soon',h:'Made to order',p:'We bake these flavors especially for you. Order them with our team in advance and we’ll have them ready for your date.'},
+              rect:{e:'New',h:'Rectangular cakes',p:'Our cakes in a rectangular shape. Ask our team about the flavors.'},
               sheet:{e:'To share',h:'Party sheet cakes',p:'For big groups. Order in advance in 1/4, 1/2 or full sheet; the price depends on the size.'}},
       orderNote:'<b>MADE TO ORDER:</b> we bake it especially for you. Order it with our team in advance.',
       sheetNote:'<b>MADE TO ORDER · PRICE BY SIZE:</b> choose 1/4, 1/2 or a full sheet. Ask our team for the price of each size.',
@@ -321,6 +323,11 @@ const EXTRA=[
  X('cakes','P23','oreo_cheesecake','Oreo Cheesecake',['chocolate','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Oreo',d:'Cheesecake entero con galleta Oreo.'},{tl:'Cheesecake · Oreo',d:'A whole cheesecake with Oreo cookies.'}),
  X('cakes','P24','biscoff_cheesecake','Biscoff Cheesecake',['caramel','creamy'],S('Entero','Whole'),{tl:'Cheesecake · Biscoff',d:'Cheesecake entero con galleta caramelizada Biscoff.'},{tl:'Cheesecake · Biscoff',d:'A whole cheesecake with caramelized Biscoff cookies.'}),
  X('cakes','P25','ny_cheesecake','NY Style Cheesecake',['creamy'],S('Entero','Whole'),{tl:'Cheesecake estilo New York',d:'Cheesecake clásico estilo New York, cremoso y denso.'},{tl:'New York style cheesecake',d:'Classic New York style cheesecake, rich and creamy.'}),
+ X('cakes','R01','rect_r01','Nombre por confirmar',[],S('Rectangular','Rectangular'),{tl:'Pastel rectangular',d:'Pastel rectangular. Pregunte a nuestro equipo por el sabor y el tamaño.'},{tl:'Rectangular cake',d:'Rectangular cake. Ask our team about the flavor and size.'}),
+ X('cakes','R02','rect_r02','Nombre por confirmar',[],S('Rectangular','Rectangular'),{tl:'Pastel rectangular',d:'Pastel rectangular. Pregunte a nuestro equipo por el sabor y el tamaño.'},{tl:'Rectangular cake',d:'Rectangular cake. Ask our team about the flavor and size.'}),
+ X('cakes','R03','rect_r03','Nombre por confirmar',[],S('Rectangular','Rectangular'),{tl:'Pastel rectangular',d:'Pastel rectangular. Pregunte a nuestro equipo por el sabor y el tamaño.'},{tl:'Rectangular cake',d:'Rectangular cake. Ask our team about the flavor and size.'}),
+ X('cakes','R04','rect_r04','Nombre por confirmar',[],S('Rectangular','Rectangular'),{tl:'Pastel rectangular',d:'Pastel rectangular. Pregunte a nuestro equipo por el sabor y el tamaño.'},{tl:'Rectangular cake',d:'Rectangular cake. Ask our team about the flavor and size.'}),
+ X('cakes','R05','rect_r05','Nombre por confirmar',[],S('Rectangular','Rectangular'),{tl:'Pastel rectangular',d:'Pastel rectangular. Pregunte a nuestro equipo por el sabor y el tamaño.'},{tl:'Rectangular cake',d:'Rectangular cake. Ask our team about the flavor and size.'}),
 
  X('pastries','T01','creme_brulee','Crème Brûlée',['creamy'],S('Individual','Single'),{tl:'Vanilla · Caramelo',d:'Crema de vanilla con su capa de azúcar caramelizada.'},{tl:'Vanilla · Caramel',d:'Vanilla custard with a crackly caramelized sugar top.'}),
  X('pastries','T02','cannoli','Cannoli',['creamy'],S('Chico · Grande','Small · Large'),{tl:'Clásico italiano',d:'Masa crujiente rellena de crema dulce.'},{tl:'Italian classic',d:'Crispy shell filled with sweet cream.'}),
@@ -359,15 +366,15 @@ P.push(...EXTRA);
 }
 // ---- Fotos de la sesión de nov-2026: 2 = de lado (img/{id}-out.webp) + desde arriba (img/{id}-in.webp) · 1 = una sola foto
 const SEASONAL={choc_strawberries:1};
-const GROUP={coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
+const GROUP={rect_r01:'rect',rect_r02:'rect',rect_r03:'rect',rect_r04:'rect',rect_r05:'rect',coconut_cream:'order',lemon_cake:'order',biscoff_cake:'order',german_chocolate:'order',chocolate_dubai:'order',sheet_cake:'sheet',tres_leches_sheet:'sheet'};
 P.forEach(p => { if (GROUP[p.id]) p.group = GROUP[p.id]; });
 P.forEach(p => { if (p.id==='turtle_cheesecake') p.nuts = true; });
-const PHOTOS={choc_strawberries:1,raspberry_cream_puff:2,strawberry_cream_puff:2,tres_leches_personal:2,blueberry_tart:2,fruit_tart:2,black_forest_pastry:1,apple_butter_pecan:2,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:2,gender_reveal_cake:1,oreo_cheesecake:2,biscoff_cheesecake:2,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
+const PHOTOS={choc_strawberries:1,rect_r01:1,rect_r02:1,rect_r03:1,rect_r04:1,rect_r05:1,raspberry_cream_puff:2,strawberry_cream_puff:2,tres_leches_personal:2,blueberry_tart:2,fruit_tart:2,black_forest_pastry:1,apple_butter_pecan:2,carrot_cake:2,oreo_mousse:2,vanilla_raspberry:2,gender_reveal_cake:1,oreo_cheesecake:2,biscoff_cheesecake:2,tiramisu:1,pistachio_raspberry_mousse:2,ny_cheesecake:2,turtle_cheesecake:2,red_velvet_cake:2,vanilla_buttercream:2,chocolate_buttercream:2,chocolate_ganache:2,bts:2,strawberry_shortcake:2,strawberry_lovers_cake:2,
   creme_brulee:1,cannoli:1,eclair:1,lemon_bar:1,cake_pops:1};
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611100031';
+const BUILD = '202611102247';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
@@ -398,7 +405,7 @@ function renderGrid(){
     $('content').innerHTML = `<div class="soonbox"><div class="dots"><i></i><i></i><i></i></div><h2>${T[lang].soonTitle}</h2><p>${T[lang].soonText[cat]}</p></div>`;
     return;
   }
-  if (cat === 'cakes') list = [...list.filter(p => !p.group), ...list.filter(p => p.group==='order'), ...list.filter(p => p.group==='sheet')];
+  if (cat === 'cakes') list = [...list.filter(p => !p.group), ...list.filter(p => p.group==='rect'), ...list.filter(p => p.group==='order'), ...list.filter(p => p.group==='sheet')];
   const card = (p,i) => `
     <button class="card" data-i="${i}" id="card-${p.id}">
       <div class="ph">${badge(p)}${p.photo===false ? pend(p) : `<img src="img/${p.id}-out.webp?v=${BUILD}" alt="${p.name}" loading="lazy">`}</div>
@@ -407,14 +414,14 @@ function renderGrid(){
     </button>`;
   const idx = list.map((p,i) => [p,i]);
   let html = `<div class="grid">` + idx.filter(([p]) => !p.group).map(([p,i]) => card(p,i)).join('') + `</div>`;
-  for (const g of ['order','sheet']){
+  for (const g of ['rect','order','sheet']){
     const part = idx.filter(([p]) => p.group === g); if (!part.length) continue;
     const G = T[lang].groups[g];
     html += `<section class="group"><header><span class="eb">${G.e}</span><h2>${G.h}</h2><p>${G.p}</p></header><div class="grid">` + part.map(([p,i]) => card(p,i)).join('') + `</div></section>`;
   }
   $('content').innerHTML = html.replace('<div class="grid"></div>','');
 }
-function badge(p){ const t=T[lang]; return p.seasonal ? `<span class="season low">${t.season}</span>` : p.group ? `<span class="season">${t.order}</span>` : ''; }
+function badge(p){ const t=T[lang]; return p.seasonal ? `<span class="season low">${t.season}</span>` : p.group && p.group!=='rect' ? `<span class="season">${t.order}</span>` : ''; }
 const CAM = '<svg viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 9l3-5h10l3 5" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="23" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>';
 function pend(p){ const t=T[lang]; return `<div class="pend" title="${p.code}"><div class="cam"><svg class="steam" viewBox="0 0 40 16" aria-hidden="true"><path d="M10 15c-3-3 3-5 0-8s3-5 0-6"/><path d="M20 15c-3-3 3-5 0-8s3-5 0-6"/><path d="M30 15c-3-3 3-5 0-8s3-5 0-6"/></svg>${CAM}</div><div class="pt">${t.pending}</div><div class="ps">${t.pendSub}</div><div class="pn">${t.pendNote}</div></div>`; }
 function renderAll(){
@@ -441,7 +448,7 @@ function openP(i, keepView){
   if (p.group === 'sheet') rows.push([t.price, t.priceVal]);
   $('p-rows').innerHTML = rows.map(([a,b]) => `<div class="row"><dt>${a}</dt><dd>${b}</dd></div>`).join('');
   const note = p.seasonal ? t.seasonNote : p.group==='order' ? t.orderNote : p.group==='sheet' ? t.sheetNote : '';
-  $('p-season').hidden = !(p.seasonal || p.group); $('p-season').classList.toggle('low', !!p.seasonal); $('p-season').textContent = p.seasonal ? t.season : t.order; $('p-seasonnote').hidden = !note; $('p-seasonnote').innerHTML = note;
+  $('p-season').hidden = !(p.seasonal || (p.group && p.group!=='rect')); $('p-season').classList.toggle('low', !!p.seasonal); $('p-season').textContent = p.seasonal ? t.season : t.order; $('p-seasonnote').hidden = !note; $('p-seasonnote').innerHTML = note;
   $('p-allergy').hidden = false; $('p-allergy').innerHTML = p.nuts ? t.allergy : t.allergyAll;
   $('prev').textContent = t.prev; $('next').textContent = t.next;
   $('sheet').hidden = false; document.body.style.overflow = 'hidden';
