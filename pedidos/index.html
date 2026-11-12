@@ -57,6 +57,7 @@ h1{font-family:IS;font-weight:400;color:var(--rose);font-size:58px;line-height:.
 .sum{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-top:26px;font-size:14.5px;line-height:1.6}
 .sum .row{display:flex;justify-content:space-between;gap:10px}
 .sum .tot{border-top:1px solid var(--line);margin-top:8px;padding-top:8px;font-weight:700}
+.sum .ty{margin-top:14px;text-align:center;font-family:IS;font-size:22px;line-height:1.1}
 .sum .pay{margin-top:10px;font-size:13px;color:var(--mute)}
 .bar{position:fixed;left:0;right:0;bottom:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 70%,rgba(241,219,221,0));z-index:5}
 .bar button{display:block;width:100%;max-width:524px;margin:0 auto;border:0;border-radius:999px;background:var(--rose);color:#fff;font:700 15px/1 inherit;font-family:inherit;letter-spacing:.18em;text-transform:uppercase;padding:19px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.18)}
@@ -117,6 +118,7 @@ footer{text-align:center;font-size:12px;color:var(--mute);margin:40px 0 0;letter
     <div class="num" id="num"></div>
     <p id="doneMsg"></p>
     <p data-t="doneMail"></p>
+    <p data-t="ty" style="font-family:IS;font-size:28px;margin-top:22px"></p>
   </div>
 
   <footer>Yummy Tummy Bakery · Humble · New Caney</footer>
@@ -155,10 +157,10 @@ const T={
   s1:'Choose your pies',s2:'Pickup store',s3:'Pickup date',s4:'Your information',
   hours:'Pickup available until November 24. Our team will confirm the date with you.',name:'Full name',email:'Email',phone:'Phone',notes:'Notes (optional)',
   ask:'Price at the store',summary:'Your order',none:'Add at least one pie to start.',est:'Estimated total',
-  pay:'Once your order is placed, our team will contact you to complete your payment online and schedule your pickup. Thank you for choosing us!',
+  pay:'Once your order is placed, our team will contact you to complete your payment online and schedule your pickup.',ty:'Thank you for choosing us!',
   send:'Place my order',sending:'Sending…',
   e_items:'Add at least one pie.',e_store:'Choose a pickup store.',e_day:'Choose a pickup date (until November 24).',e_name:'Write your name.',e_email:'Check your email address.',e_phone:'Check your phone number.',e_net:'We could not send your order. Please try again, or call your store.',
-  thanks:'Thank you!',doneMail:'We sent a confirmation to your email. Thank you for choosing us!',
+  thanks:'Thank you!',doneMail:'We sent a confirmation to your email.',ty:'Thank you for choosing us!',
   doneMsg:(n,s,d)=>`${n}, we received your order for Yummy Tummy ${s} (preferred pickup: ${d}). Our team will contact you to complete your payment online and schedule your pickup.`,
   closed:'Thanksgiving pre-orders are closed. Visit us at the store, we may still have pies in the display case!',
   pie:'pie',pies:'pies'},
@@ -167,10 +169,10 @@ const T={
   s1:'Escoja sus pies',s2:'Sucursal de retiro',s3:'Fecha de retiro',s4:'Sus datos',
   hours:'Retiro disponible hasta el 24 de noviembre. Nuestro equipo confirmará la fecha con usted.',name:'Nombre completo',email:'Email',phone:'Teléfono',notes:'Notas (opcional)',
   ask:'Precio en tienda',summary:'Su pedido',none:'Agregue al menos un pie para empezar.',est:'Total estimado',
-  pay:'Una vez realizado su pedido, nuestro equipo se contactará con usted para realizar su pago en línea y retirar su orden una vez se programe con nuestro team. ¡Gracias por preferirnos!',
+  pay:'Una vez realizado su pedido, nuestro equipo se contactará con usted para realizar su pago en línea y retirar su orden una vez se programe con nuestro team.',ty:'¡Gracias por preferirnos!',
   send:'Hacer mi pedido',sending:'Enviando…',
   e_items:'Agregue al menos un pie.',e_store:'Escoja la sucursal.',e_day:'Escoja la fecha de retiro (hasta el 24 de noviembre).',e_name:'Escriba su nombre.',e_email:'Revise su email.',e_phone:'Revise su teléfono.',e_net:'No pudimos enviar su pedido. Intente de nuevo o llame a su sucursal.',
-  thanks:'¡Gracias!',doneMail:'Le enviamos una confirmación a su email. ¡Gracias por preferirnos!',
+  thanks:'¡Gracias!',doneMail:'Le enviamos una confirmación a su email.',ty:'¡Gracias por preferirnos!',
   doneMsg:(n,s,d)=>`${n}, recibimos su pedido para Yummy Tummy ${s} (fecha preferida: ${d}). Nuestro equipo se contactará con usted para realizar su pago en línea y programar el retiro.`,
   closed:'Los pedidos de Thanksgiving ya cerraron. ¡Visítenos en la tienda, puede que aún tengamos pies en vitrina!',
   pie:'pie',pies:'pies'}
@@ -198,7 +200,7 @@ function render(){
     if(SHOW_PRICES){const tot=sel.reduce((a,p)=>a+(p.price||0)*qty[p.id],0);const partial=sel.some(p=>!p.price);
       h+=`<div class="row tot"><span>${t.est}</span><span>${money(tot)}${partial?' +':''}</span></div>`}
   }
-  h+=`<div class="pay">${t.pay}</div>`;
+  h+=`<div class="pay">${t.pay}</div><div class="ty">${t.ty}</div>`;
   $('sum').innerHTML=h;
   const n=sel.reduce((a,p)=>a+qty[p.id],0);
   $('send').textContent=n?`${t.send} · ${n} ${n>1?t.pies:t.pie}`:t.send;
