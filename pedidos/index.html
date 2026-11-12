@@ -49,6 +49,7 @@ h1{font-family:IS;font-weight:400;color:var(--rose);font-size:58px;line-height:.
 .note{font-size:13px;color:var(--mute);margin-top:10px;text-align:center}
 .f{display:block;margin-bottom:12px}
 .f span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px 4px;font-weight:600}
+.f input[type=date]{min-height:52px;-webkit-appearance:none;appearance:none}
 .f input,.f textarea{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:14px;padding:14px 15px;font-size:16px;font-family:inherit;color:var(--ink);outline:none}
 .f input:focus,.f textarea:focus{border-color:var(--rose)}
 .f textarea{min-height:70px;resize:vertical}
@@ -77,7 +78,7 @@ footer{text-align:center;font-size:12px;color:var(--mute);margin:40px 0 0;letter
 
   <h1>Thanksgiving<br>Pie Collection</h1>
   <p class="lead" data-t="lead"></p>
-  <div class="facts"><span data-t="f1"></span><span data-t="f2"></span><span data-t="f3"></span></div>
+  <div class="facts"><span data-t="f1"></span></div>
 
   <div id="closed" class="closed"><p class="lead" data-t="closed"></p></div>
 
@@ -94,7 +95,7 @@ footer{text-align:center;font-size:12px;color:var(--mute);margin:40px 0 0;letter
 
     <section class="step">
       <h2><b>3</b><span data-t="s3"></span></h2>
-      <div class="opts" id="days"></div>
+      <label class="f"><input id="date" type="date" required></label>
       <p class="note" data-t="hours"></p>
     </section>
 
@@ -128,8 +129,7 @@ footer{text-align:center;font-size:12px;color:var(--mute);margin:40px 0 0;letter
 const API_URL = '';                       // URL del Apps Script (Implementar → App web). Vacío = modo prueba.
 const SHOW_PRICES = true;                 // false = esconder precios
 const ORDER_DEADLINE = '2026-11-23T23:59:59-06:00';
-const PICKUP_DAYS = ['2026-11-24','2026-11-25'];
-const PICKUP_UNTIL = '6:00 PM';
+const PICKUP_LAST = '2026-11-24';         // último día de retiro
 const STORES = [
   {id:'Humble', en:'Humble', es:'Humble'},
   {id:'New Caney', en:'New Caney', es:'New Caney'}
@@ -150,28 +150,28 @@ const PIES = [
 /* ========================== */
 
 const T={
- en:{lead:'Baked fresh for the season and only for a limited time. Choose your pies, your store and your pickup day — you pay when you pick them up.',
-  f1:'Order by Mon · Nov 23',f2:'Pick up by Wed · Nov 25',f3:'Pay at pickup',
-  s1:'Choose your pies',s2:'Pickup store',s3:'Pickup day',s4:'Your information',
-  hours:`Pickup until ${PICKUP_UNTIL}.`,name:'Full name',email:'Email',phone:'Phone',notes:'Notes (optional)',
+ en:{lead:'Baked fresh for the season and only for a limited time. Choose your pies, your store and your pickup date.',
+  f1:'Pickup until November 24',
+  s1:'Choose your pies',s2:'Pickup store',s3:'Pickup date',s4:'Your information',
+  hours:'Pickup available until November 24. Our team will confirm the date with you.',name:'Full name',email:'Email',phone:'Phone',notes:'Notes (optional)',
   ask:'Price at the store',summary:'Your order',none:'Add at least one pie to start.',est:'Estimated total',
-  pay:'Nothing to pay now — you pay at the store when you pick up your order. Prices may include tax adjustments at the register.',
+  pay:'Once your order is placed, our team will contact you to complete your payment online and schedule your pickup. Thank you for choosing us!',
   send:'Place my order',sending:'Sending…',
-  e_items:'Add at least one pie.',e_store:'Choose a pickup store.',e_day:'Choose a pickup day.',e_name:'Write your name.',e_email:'Check your email address.',e_phone:'Check your phone number.',e_net:'We could not send your order. Please try again, or call your store.',
-  thanks:'Thank you!',doneMail:'We sent a confirmation to your email. If you need to change something, just reply to that email.',
-  doneMsg:(n,s,d)=>`${n}, your order is in. Pick it up at Yummy Tummy ${s} on ${d}, before ${PICKUP_UNTIL}.`,
-  closed:'Thanksgiving pre-orders are closed. Visit us at the store — we may still have pies in the display case!',
+  e_items:'Add at least one pie.',e_store:'Choose a pickup store.',e_day:'Choose a pickup date (until November 24).',e_name:'Write your name.',e_email:'Check your email address.',e_phone:'Check your phone number.',e_net:'We could not send your order. Please try again, or call your store.',
+  thanks:'Thank you!',doneMail:'We sent a confirmation to your email. Thank you for choosing us!',
+  doneMsg:(n,s,d)=>`${n}, we received your order for Yummy Tummy ${s} (preferred pickup: ${d}). Our team will contact you to complete your payment online and schedule your pickup.`,
+  closed:'Thanksgiving pre-orders are closed. Visit us at the store, we may still have pies in the display case!',
   pie:'pie',pies:'pies'},
- es:{lead:'Hechos frescos para la temporada y solo por tiempo limitado. Escoja sus pies, su sucursal y el día de retiro — paga cuando los recoge.',
-  f1:'Ordene hasta el lun · 23 nov',f2:'Retire hasta el mié · 25 nov',f3:'Paga al retirar',
-  s1:'Escoja sus pies',s2:'Sucursal de retiro',s3:'Día de retiro',s4:'Sus datos',
-  hours:`Retiro hasta las ${PICKUP_UNTIL}.`,name:'Nombre completo',email:'Email',phone:'Teléfono',notes:'Notas (opcional)',
+ es:{lead:'Hechos frescos para la temporada y solo por tiempo limitado. Escoja sus pies, su sucursal y la fecha de retiro.',
+  f1:'Retiro hasta el 24 de noviembre',
+  s1:'Escoja sus pies',s2:'Sucursal de retiro',s3:'Fecha de retiro',s4:'Sus datos',
+  hours:'Retiro disponible hasta el 24 de noviembre. Nuestro equipo confirmará la fecha con usted.',name:'Nombre completo',email:'Email',phone:'Teléfono',notes:'Notas (opcional)',
   ask:'Precio en tienda',summary:'Su pedido',none:'Agregue al menos un pie para empezar.',est:'Total estimado',
-  pay:'No paga nada ahora — paga en la tienda al recoger su pedido. El total en caja puede incluir ajustes de impuestos.',
+  pay:'Una vez realizado su pedido, nuestro equipo se contactará con usted para realizar su pago en línea y retirar su orden una vez se programe con nuestro team. ¡Gracias por preferirnos!',
   send:'Hacer mi pedido',sending:'Enviando…',
-  e_items:'Agregue al menos un pie.',e_store:'Escoja la sucursal.',e_day:'Escoja el día de retiro.',e_name:'Escriba su nombre.',e_email:'Revise su email.',e_phone:'Revise su teléfono.',e_net:'No pudimos enviar su pedido. Intente de nuevo o llame a su sucursal.',
-  thanks:'¡Gracias!',doneMail:'Le enviamos una confirmación a su email. Si necesita cambiar algo, responda ese email.',
-  doneMsg:(n,s,d)=>`${n}, recibimos su pedido. Recójalo en Yummy Tummy ${s} el ${d}, antes de las ${PICKUP_UNTIL}.`,
+  e_items:'Agregue al menos un pie.',e_store:'Escoja la sucursal.',e_day:'Escoja la fecha de retiro (hasta el 24 de noviembre).',e_name:'Escriba su nombre.',e_email:'Revise su email.',e_phone:'Revise su teléfono.',e_net:'No pudimos enviar su pedido. Intente de nuevo o llame a su sucursal.',
+  thanks:'¡Gracias!',doneMail:'Le enviamos una confirmación a su email. ¡Gracias por preferirnos!',
+  doneMsg:(n,s,d)=>`${n}, recibimos su pedido para Yummy Tummy ${s} (fecha preferida: ${d}). Nuestro equipo se contactará con usted para realizar su pago en línea y programar el retiro.`,
   closed:'Los pedidos de Thanksgiving ya cerraron. ¡Visítenos en la tienda, puede que aún tengamos pies en vitrina!',
   pie:'pie',pies:'pies'}
 };
@@ -190,7 +190,6 @@ function render(){
   $('list').innerHTML=PIES.map(p=>`<div class="item${qty[p.id]?' sel':''}"><div><div class="n">${p[L]}</div>${SHOW_PRICES?`<div class="p">${p.price?money(p.price):t.ask}</div>`:''}</div>
    <div class="stp"><button type="button" data-m="${p.id}" aria-label="-" ${qty[p.id]?'':'disabled'}>−</button><output>${qty[p.id]}</output><button type="button" class="plus" data-p="${p.id}" aria-label="+">+</button></div></div>`).join('');
   $('stores').innerHTML=STORES.map(s=>`<button type="button" class="opt${store===s.id?' on':''}" data-s="${s.id}"><span class="big">${s[L]}</span><span class="sm">Yummy Tummy</span></button>`).join('');
-  $('days').innerHTML=PICKUP_DAYS.map(d=>{const x=dayShort(d,L);return`<button type="button" class="opt${day===d?' on':''}" data-d="${d}"><span class="big" style="text-transform:capitalize">${x.a}</span><span class="sm">${x.b}</span></button>`}).join('');
   const sel=PIES.filter(p=>qty[p.id]);
   let h=`<div style="font-weight:700;margin-bottom:6px">${t.summary}</div>`;
   if(!sel.length)h+=`<div style="color:var(--mute)">${t.none}</div>`;
@@ -210,7 +209,6 @@ document.addEventListener('click',e=>{
   if(b.dataset.p){qty[b.dataset.p]=Math.min(20,qty[b.dataset.p]+1);render()}
   if(b.dataset.m){qty[b.dataset.m]=Math.max(0,qty[b.dataset.m]-1);render()}
   if(b.dataset.s){store=b.dataset.s;render()}
-  if(b.dataset.d){day=b.dataset.d;render()}
 });
 
 async function send(){
@@ -220,7 +218,8 @@ async function send(){
   const bad=m=>{err.textContent=m;err.scrollIntoView({behavior:'smooth',block:'center'})};
   if(!items.length)return bad(t.e_items);
   if(!store)return bad(t.e_store);
-  if(!day)return bad(t.e_day);
+  day=$('date').value;
+  if(!day||day<$('date').min||day>PICKUP_LAST)return bad(t.e_day);
   if(name.length<2)return bad(t.e_name);
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return bad(t.e_email);
   if(phone.replace(/\D/g,'').length<10)return bad(t.e_phone);
@@ -241,6 +240,7 @@ async function send(){
 }
 $('send').addEventListener('click',send);
 if(Date.now()>new Date(ORDER_DEADLINE).getTime()){$('form').style.display='none';$('bar').style.display='none';$('closed').style.display='block'}
+(function(){const d=new Date(Date.now()+86400000).toLocaleDateString('en-CA',{timeZone:'America/Chicago'});const i=$('date');i.min=d<PICKUP_LAST?d:PICKUP_LAST;i.max=PICKUP_LAST;})();
 render();
 </script>
 </body>
