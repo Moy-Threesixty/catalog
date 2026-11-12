@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F1DBDD">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -23,8 +23,9 @@
 <style>
 /* Layout: brand header + category tabs, flavor filter chips, photo grid; tap opens a full-screen product sheet. Single brand theme (light) by choice. */
 :root{
-  --rose:#A3414A; --wine:#7A2E36; --ink:#3A2326; --muted:#8A7477;
-  --blush:#F7E4E5; --tint:#FBF3F3; --line:#E9C9CC; --paper:#FFFFFF; --ivory:#FBF8F3;
+  /* Paleta aprobada nov-2026: rosa marca PANTONE 705 C (#F1DBDD) + rosa 300 (#E4BEC1) + negro */
+  --rose:#1A1A1A; --wine:#1A1A1A; --ink:#1A1A1A; --muted:#5E5E5E;
+  --blush:#E4BEC1; --tint:#F1DBDD; --line:#E4BEC1; --paper:#FFFFFF; --ivory:#FFFFFF;
   --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
   --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
   color-scheme:light;
@@ -37,7 +38,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--rose);outline-offset:2px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
 
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--tint);border-bottom:1px solid var(--line)}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .bar{display:flex;align-items:center;gap:16px;padding-block:14px 10px}
 .logo{height:46px;width:auto;display:block}
@@ -49,7 +50,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tabs::-webkit-scrollbar{display:none}
 .tab{border:0;background:transparent;padding:12px 16px 13px;font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;display:flex;gap:8px;align-items:center}
 .tab[aria-selected="true"]{color:var(--wine);border-bottom-color:var(--rose)}
-.tab .count{font-size:11px;background:var(--blush);color:var(--wine);border-radius:999px;padding:2px 8px;letter-spacing:0}
+.tab .count{font-size:11px;background:var(--paper);color:var(--wine);border-radius:999px;padding:2px 8px;letter-spacing:0}
 .tab .soon{font-size:10px;color:var(--muted);letter-spacing:.04em;font-weight:600;text-transform:none}
 
 main{padding-block:22px 40px}
@@ -62,7 +63,7 @@ main{padding-block:22px 40px}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
 .card{border:0;background:var(--paper);border-radius:18px;padding:12px 12px 16px;text-align:left;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 0 var(--line);transition:transform .15s ease, box-shadow .15s ease}
-.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(122,46,54,.45)}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(26,26,26,.25)}
 .card .ph{aspect-ratio:1/1;max-width:100%;display:grid;place-items:center;background:var(--paper);border-radius:12px;overflow:hidden}
 .card img{mix-blend-mode:multiply;width:86%;height:86%;object-fit:contain}
 .card h3{margin:0;font-size:18px;font-weight:700;color:var(--wine);letter-spacing:-.01em}
@@ -95,7 +96,7 @@ main{padding-block:22px 40px}
 .foot{color:var(--muted);font-size:13px;text-align:center;padding-block:10px 24px;letter-spacing:.04em}
 
 /* product sheet */
-.sheet{position:fixed;inset:0;z-index:40;background:rgba(58,35,38,.42);display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
+.sheet{position:fixed;inset:0;z-index:40;background:rgba(26,26,26,.4);display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
 .panel{background:var(--paper);border-radius:24px;width:min(1080px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1.05fr 1fr;position:relative}
 .stage{background:var(--ivory);display:grid;grid-template-rows:1fr auto;gap:14px;padding:26px;min-height:420px;border-radius:24px 0 0 24px}
 .stage .imgbox{display:grid;place-items:center;min-height:0;position:relative}
@@ -146,7 +147,7 @@ main{padding-block:22px 40px}
 <header class="top">
   <div class="wrap">
     <div class="bar">
-      <img class="logo" src="img/logo.png" alt="Yummy Tummy Bakery">
+      <img class="logo" src="img/logo.png?v=2" alt="Yummy Tummy Bakery">
       <div class="spacer"></div>
       <div class="lang" role="group" aria-label="Language">
         <button id="lang-es" type="button" aria-pressed="true">ES</button>
@@ -438,7 +439,7 @@ const PHOTOS={choc_strawberries:1,rect_r01:2,rect_r02:2,rect_r03:2,rect_r04:2,re
 P.forEach(p => { if (SEASONAL[p.id]) p.seasonal = true; if (PHOTOS[p.id]){ p.photo = true; p.views = PHOTOS[p.id]; } });
 
 
-const BUILD = '202611111538';
+const BUILD = '202611111907';
 let lang = 'es', cat = 'cupcakes', tag = null, current = -1, view = 'out', list = [];
 try { const s = JSON.parse(localStorage.getItem('ytb-cat') || '{}'); if (s.lang) lang = s.lang; } catch(e) {}
 const $ = id => document.getElementById(id);
